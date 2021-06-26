@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>3 | Ajay Subramanian</title>
-    <link>https://ajaysub110.github.io/publication-type/3/</link>
-      <atom:link href="https://ajaysub110.github.io/publication-type/3/index.xml" rel="self" type="application/rss+xml" />
-    <description>3</description>
+    <title>computer vision | Ajay Subramanian</title>
+    <link>https://ajaysub110.github.io/tag/computer-vision/</link>
+      <atom:link href="https://ajaysub110.github.io/tag/computer-vision/index.xml" rel="self" type="application/rss+xml" />
+    <description>computer vision</description>
     <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© 2021 Ajay Subramanian</copyright><lastBuildDate>Mon, 07 Jun 2021 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://ajaysub110.github.io/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png</url>
-      <title>3</title>
-      <link>https://ajaysub110.github.io/publication-type/3/</link>
+      <title>computer vision</title>
+      <link>https://ajaysub110.github.io/tag/computer-vision/</link>
     </image>
     
     <item>
@@ -17,14 +17,6 @@
       <link>https://ajaysub110.github.io/publication/subramanian2021using/</link>
       <pubDate>Mon, 07 Jun 2021 00:00:00 +0000</pubDate>
       <guid>https://ajaysub110.github.io/publication/subramanian2021using/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Reinforcement Learning and its Connections with Neuroscience and Psychology</title>
-      <link>https://ajaysub110.github.io/publication/subramanian2021reinforcement/</link>
-      <pubDate>Mon, 01 Feb 2021 00:00:00 +0000</pubDate>
-      <guid>https://ajaysub110.github.io/publication/subramanian2021reinforcement/</guid>
       <description></description>
     </item>
     
