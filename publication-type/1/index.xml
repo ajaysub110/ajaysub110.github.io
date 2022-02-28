@@ -5,12 +5,20 @@
     <link>https://ajaysub110.github.io/publication-type/1/</link>
       <atom:link href="https://ajaysub110.github.io/publication-type/1/index.xml" rel="self" type="application/rss+xml" />
     <description>1</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© 2021 Ajay Subramanian</copyright><lastBuildDate>Thu, 12 Dec 2019 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© 2021 Ajay Subramanian</copyright><lastBuildDate>Mon, 28 Feb 2022 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://ajaysub110.github.io/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png</url>
       <title>1</title>
       <link>https://ajaysub110.github.io/publication-type/1/</link>
     </image>
+    
+    <item>
+      <title>Benchmarking dynamic neural-network models of the human speed-accuracy tradeoff</title>
+      <link>https://ajaysub110.github.io/publication/subramanian2022benchmarking/</link>
+      <pubDate>Mon, 28 Feb 2022 00:00:00 +0000</pubDate>
+      <guid>https://ajaysub110.github.io/publication/subramanian2022benchmarking/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Word2Brain2Image: Visual Reconstruction from Spoken Word Representations</title>

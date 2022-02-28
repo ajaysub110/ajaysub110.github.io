@@ -33,10 +33,10 @@
   
     
   
-  <meta name="description" content="People take a variable amount of time, 0.1 to 10 s, to recognize an object. The reaction time depends on the stimulus and task, and people can trade off speed for accuracy. That tradeoff is a crucial human skill. Neural networks exhibit high accuracy in object recognition, but most current models cannot dynamically adapt to respond with less computation, which is a problem in time-sensitive applications like driving. Towards the goal of using networks to model how people recognize objects, we here present a benchmark dataset (with model fits) of the human speed-accuracy tradeoff (SAT) in recognizing CIFAR-10 and STL-10 images. In each trial, a beep, indicating the desired reaction time, sounds at a fixed delay after the target onset, and the observer&#39;s response counts only if it occurs near the time of the beep. With practice, observers quickly learn to respond at the time of the beep. In a series of blocks, we test many beep latencies, i.e., reaction times. We observe that human accuracy increases with reaction time, and we compare its characteristics with the behavior of several dynamic neural networks that can trade off speed and accuracy. After limiting the network resources and adding image perturbations (grayscale conversion, noise, blur) to bring the two observers (human and network) into the same accuracy range, we show that humans and networks exhibit very similar tradeoffs. We conclude that dynamic neural networks are a promising model of human reaction time in recognition tasks. Our dataset and code are publicly available." />
+  <meta name="description" content="People take a variable amount of time (0.1 - 10 s) to recognize an object and can trade speed for accuracy. Various time-constrained tasks demand a wide range of accuracy and latency. Previous work (Spoerer’20) has modeled only modest speed-accuracy tradeoffs (SATs) with a min-to-max range of merely 6% accuracy and 200 ms reaction time, a tiny fraction of the human range. Here, we collect and present a public human benchmark where we use image perturbations to adjust task difficulty and increase the accuracy range to more than 50%. Furthermore, we show that dynamic neural networks are a promising model of the SAT and capture the behavior without needing recurrence. 142 online participants categorized CIFAR-10 images with controlled reaction time. Reaction time (RT) was defined as the elapsed time between stimulus presentation and a keypress response. We ran 5 blocks of 300 trials, each with a different reaction time from 200-1000 ms and repeated the experiment with 4 different viewing conditions, color, grayscale, noise, and blur. Three networks, MSDNet (Huang’17), SCAN (Zhang’19), and ConvRNN (Spoerer’20) were trained on CIFAR-10 image classification. Using FLOPs as an analogue for human reaction time, we tested these networks by forcing them to “respond” using different amounts of computation, across all viewing conditions. We compared the three networks and humans using two metrics, accuracy range (difference between maximum and minimum accuracy when reaction time is varied) and correlation between speed-accuracy trade-off curves. MSDNet gives a better account than previous attempts without needing recurrence. When trained with noise, it shows high correlation (0.93) with human SAT. However, humans are much more flexible, with a large 51% accuracy range while the best network, MSDNet trained with noise, shows only 19%. Thus, our benchmark presents a challenging goal for future work that aims to model SAT." />
 
   
-  <link rel="alternate" hreflang="en-us" href="https://ajaysub110.github.io/publication/subramanian2021using/" />
+  <link rel="alternate" hreflang="en-us" href="https://ajaysub110.github.io/publication/subramanian2022benchmarking/" />
 
   
 
@@ -323,7 +323,7 @@
   <link rel="icon" type="image/png" href="/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_3.png" />
   <link rel="apple-touch-icon" type="image/png" href="/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_180x180_fill_lanczos_center_3.png" />
 
-  <link rel="canonical" href="https://ajaysub110.github.io/publication/subramanian2021using/" />
+  <link rel="canonical" href="https://ajaysub110.github.io/publication/subramanian2022benchmarking/" />
 
   
   
@@ -340,18 +340,18 @@
   <meta property="twitter:card" content="summary" />
   
   <meta property="og:site_name" content="Ajay Subramanian" />
-  <meta property="og:url" content="https://ajaysub110.github.io/publication/subramanian2021using/" />
-  <meta property="og:title" content="SATBench: A Benchmark of the Human Speed-Accuracy Tradeoff in Recognizing Objects | Ajay Subramanian" />
-  <meta property="og:description" content="People take a variable amount of time, 0.1 to 10 s, to recognize an object. The reaction time depends on the stimulus and task, and people can trade off speed for accuracy. That tradeoff is a crucial human skill. Neural networks exhibit high accuracy in object recognition, but most current models cannot dynamically adapt to respond with less computation, which is a problem in time-sensitive applications like driving. Towards the goal of using networks to model how people recognize objects, we here present a benchmark dataset (with model fits) of the human speed-accuracy tradeoff (SAT) in recognizing CIFAR-10 and STL-10 images. In each trial, a beep, indicating the desired reaction time, sounds at a fixed delay after the target onset, and the observer&#39;s response counts only if it occurs near the time of the beep. With practice, observers quickly learn to respond at the time of the beep. In a series of blocks, we test many beep latencies, i.e., reaction times. We observe that human accuracy increases with reaction time, and we compare its characteristics with the behavior of several dynamic neural networks that can trade off speed and accuracy. After limiting the network resources and adding image perturbations (grayscale conversion, noise, blur) to bring the two observers (human and network) into the same accuracy range, we show that humans and networks exhibit very similar tradeoffs. We conclude that dynamic neural networks are a promising model of human reaction time in recognition tasks. Our dataset and code are publicly available." /><meta property="og:image" content="https://ajaysub110.github.io/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png" />
+  <meta property="og:url" content="https://ajaysub110.github.io/publication/subramanian2022benchmarking/" />
+  <meta property="og:title" content="Benchmarking dynamic neural-network models of the human speed-accuracy tradeoff | Ajay Subramanian" />
+  <meta property="og:description" content="People take a variable amount of time (0.1 - 10 s) to recognize an object and can trade speed for accuracy. Various time-constrained tasks demand a wide range of accuracy and latency. Previous work (Spoerer’20) has modeled only modest speed-accuracy tradeoffs (SATs) with a min-to-max range of merely 6% accuracy and 200 ms reaction time, a tiny fraction of the human range. Here, we collect and present a public human benchmark where we use image perturbations to adjust task difficulty and increase the accuracy range to more than 50%. Furthermore, we show that dynamic neural networks are a promising model of the SAT and capture the behavior without needing recurrence. 142 online participants categorized CIFAR-10 images with controlled reaction time. Reaction time (RT) was defined as the elapsed time between stimulus presentation and a keypress response. We ran 5 blocks of 300 trials, each with a different reaction time from 200-1000 ms and repeated the experiment with 4 different viewing conditions, color, grayscale, noise, and blur. Three networks, MSDNet (Huang’17), SCAN (Zhang’19), and ConvRNN (Spoerer’20) were trained on CIFAR-10 image classification. Using FLOPs as an analogue for human reaction time, we tested these networks by forcing them to “respond” using different amounts of computation, across all viewing conditions. We compared the three networks and humans using two metrics, accuracy range (difference between maximum and minimum accuracy when reaction time is varied) and correlation between speed-accuracy trade-off curves. MSDNet gives a better account than previous attempts without needing recurrence. When trained with noise, it shows high correlation (0.93) with human SAT. However, humans are much more flexible, with a large 51% accuracy range while the best network, MSDNet trained with noise, shows only 19%. Thus, our benchmark presents a challenging goal for future work that aims to model SAT." /><meta property="og:image" content="https://ajaysub110.github.io/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png" />
     <meta property="twitter:image" content="https://ajaysub110.github.io/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png" /><meta property="og:locale" content="en-us" />
   
     
       <meta
         property="article:published_time"
-        content="2021-08-17T00:00:00&#43;00:00"
+        content="2022-02-28T00:00:00&#43;00:00"
       />
     
-    <meta property="article:modified_time" content="2021-08-17T00:00:00&#43;00:00">
+    <meta property="article:modified_time" content="2022-02-28T00:00:00&#43;00:00">
   
 
   
@@ -373,12 +373,12 @@
   "@type": "Article",
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https://ajaysub110.github.io/publication/subramanian2021using/"
+    "@id": "https://ajaysub110.github.io/publication/subramanian2022benchmarking/"
   },
-  "headline": "SATBench: A Benchmark of the Human Speed-Accuracy Tradeoff in Recognizing Objects",
+  "headline": "Benchmarking dynamic neural-network models of the human speed-accuracy tradeoff",
   
-  "datePublished": "2021-08-17T00:00:00Z",
-  "dateModified": "2021-08-17T00:00:00Z",
+  "datePublished": "2022-02-28T00:00:00Z",
+  "dateModified": "2022-02-28T00:00:00Z",
   
   "author": {
     "@type": "Person",
@@ -393,7 +393,7 @@
       "url": "https://ajaysub110.github.io/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_3.png"
     }
   },
-  "description": "People take a variable amount of time, 0.1 to 10 s, to recognize an object. The reaction time depends on the stimulus and task, and people can trade off speed for accuracy. That tradeoff is a crucial human skill. Neural networks exhibit high accuracy in object recognition, but most current models cannot dynamically adapt to respond with less computation, which is a problem in time-sensitive applications like driving. Towards the goal of using networks to model how people recognize objects, we here present a benchmark dataset (with model fits) of the human speed-accuracy tradeoff (SAT) in recognizing CIFAR-10 and STL-10 images. In each trial, a beep, indicating the desired reaction time, sounds at a fixed delay after the target onset, and the observer's response counts only if it occurs near the time of the beep. With practice, observers quickly learn to respond at the time of the beep. In a series of blocks, we test many beep latencies, i.e., reaction times. We observe that human accuracy increases with reaction time, and we compare its characteristics with the behavior of several dynamic neural networks that can trade off speed and accuracy. After limiting the network resources and adding image perturbations (grayscale conversion, noise, blur) to bring the two observers (human and network) into the same accuracy range, we show that humans and networks exhibit very similar tradeoffs. We conclude that dynamic neural networks are a promising model of human reaction time in recognition tasks. Our dataset and code are publicly available."
+  "description": "People take a variable amount of time (0.1 - 10 s) to recognize an object and can trade speed for accuracy. Various time-constrained tasks demand a wide range of accuracy and latency. Previous work (Spoerer’20) has modeled only modest speed-accuracy tradeoffs (SATs) with a min-to-max range of merely 6% accuracy and 200 ms reaction time, a tiny fraction of the human range. Here, we collect and present a public human benchmark where we use image perturbations to adjust task difficulty and increase the accuracy range to more than 50%. Furthermore, we show that dynamic neural networks are a promising model of the SAT and capture the behavior without needing recurrence. 142 online participants categorized CIFAR-10 images with controlled reaction time. Reaction time (RT) was defined as the elapsed time between stimulus presentation and a keypress response. We ran 5 blocks of 300 trials, each with a different reaction time from 200-1000 ms and repeated the experiment with 4 different viewing conditions, color, grayscale, noise, and blur. Three networks, MSDNet (Huang’17), SCAN (Zhang’19), and ConvRNN (Spoerer’20) were trained on CIFAR-10 image classification. Using FLOPs as an analogue for human reaction time, we tested these networks by forcing them to “respond” using different amounts of computation, across all viewing conditions. We compared the three networks and humans using two metrics, accuracy range (difference between maximum and minimum accuracy when reaction time is varied) and correlation between speed-accuracy trade-off curves. MSDNet gives a better account than previous attempts without needing recurrence. When trained with noise, it shows high correlation (0.93) with human SAT. However, humans are much more flexible, with a large 51% accuracy range while the best network, MSDNet trained with noise, shows only 19%. Thus, our benchmark presents a challenging goal for future work that aims to model SAT."
 }
 </script>
 
@@ -409,11 +409,11 @@
 
 
 
-  <title>SATBench: A Benchmark of the Human Speed-Accuracy Tradeoff in Recognizing Objects | Ajay Subramanian</title>
+  <title>Benchmarking dynamic neural-network models of the human speed-accuracy tradeoff | Ajay Subramanian</title>
 </head>
 
 
-<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="page-wrapper   " data-wc-page-id="a3e54dc53784e3bf6a8c7b6d62907470" >
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="page-wrapper   " data-wc-page-id="7ba8309ea4e03ee52110aa0ab1ae366b" >
 
   
   
@@ -666,7 +666,7 @@
   
   
 <div class="article-container pt-3">
-  <h1>SATBench: A Benchmark of the Human Speed-Accuracy Tradeoff in Recognizing Objects</h1>
+  <h1>Benchmarking dynamic neural-network models of the human speed-accuracy tradeoff</h1>
 
   
 
@@ -685,8 +685,8 @@
 
   <span class="author-highlighted">
       Ajay Subramanian</span>, <span >
-      Omkar Kumbhar</span>, <span >
       Elena Sizikova</span>, <span >
+      Omkar Kumbhar</span>, <span >
       Najib Majaj</span>, <span >
       Denis G. Pelli</span>
   </div>
@@ -699,7 +699,7 @@
     
       
     
-    August 2021
+    February 2022
   </span>
   
 
@@ -724,66 +724,6 @@
 
 
 
-<div class="btn-links mb-3">
-  
-  
-
-
-
-
-
-
-
-
-  
-    
-  
-
-
-
-<a class="btn btn-outline-primary btn-page-header" href="https://openreview.net/pdf?id=gZKTMm2Dt5" target="_blank" rel="noopener">
-  PDF
-</a>
-
-
-
-<a href="#" class="btn btn-outline-primary btn-page-header js-cite-modal"
-        data-filename="/publication/subramanian2021using/cite.bib">
-  Cite
-</a>
-
-
-  
-  
-    
-  
-<a class="btn btn-outline-primary btn-page-header" href="https://github.com/ajaysub110/anytime-prediction" target="_blank" rel="noopener">
-  Code
-</a>
-
-
-  
-  
-    
-  
-<a class="btn btn-outline-primary btn-page-header" href="https://osf.io/zkvep/" target="_blank" rel="noopener">
-  Dataset
-</a>
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-
 
   
 </div>
@@ -794,7 +734,7 @@
 
     
     <h3>Abstract</h3>
-    <p class="pub-abstract">People take a variable amount of time, 0.1 to 10 s, to recognize an object. The reaction time depends on the stimulus and task, and people can trade off speed for accuracy. That tradeoff is a crucial human skill. Neural networks exhibit high accuracy in object recognition, but most current models cannot dynamically adapt to respond with less computation, which is a problem in time-sensitive applications like driving. Towards the goal of using networks to model how people recognize objects, we here present a benchmark dataset (with model fits) of the human speed-accuracy tradeoff (SAT) in recognizing CIFAR-10 and STL-10 images. In each trial, a beep, indicating the desired reaction time, sounds at a fixed delay after the target onset, and the observer&rsquo;s response counts only if it occurs near the time of the beep. With practice, observers quickly learn to respond at the time of the beep. In a series of blocks, we test many beep latencies, i.e., reaction times. We observe that human accuracy increases with reaction time, and we compare its characteristics with the behavior of several dynamic neural networks that can trade off speed and accuracy. After limiting the network resources and adding image perturbations (grayscale conversion, noise, blur) to bring the two observers (human and network) into the same accuracy range, we show that humans and networks exhibit very similar tradeoffs. We conclude that dynamic neural networks are a promising model of human reaction time in recognition tasks. Our dataset and code are publicly available.</p>
+    <p class="pub-abstract">People take a variable amount of time (0.1 - 10 s) to recognize an object and can trade speed for accuracy. Various time-constrained tasks demand a wide range of accuracy and latency. Previous work (Spoerer’20) has modeled only modest speed-accuracy tradeoffs (SATs) with a min-to-max range of merely 6% accuracy and 200 ms reaction time, a tiny fraction of the human range. Here, we collect and present a public human benchmark where we use image perturbations to adjust task difficulty and increase the accuracy range to more than 50%. Furthermore, we show that dynamic neural networks are a promising model of the SAT and capture the behavior without needing recurrence. 142 online participants categorized CIFAR-10 images with controlled reaction time. Reaction time (RT) was defined as the elapsed time between stimulus presentation and a keypress response. We ran 5 blocks of 300 trials, each with a different reaction time from 200-1000 ms and repeated the experiment with 4 different viewing conditions, color, grayscale, noise, and blur. Three networks, MSDNet (Huang’17), SCAN (Zhang’19), and ConvRNN (Spoerer’20) were trained on CIFAR-10 image classification. Using FLOPs as an analogue for human reaction time, we tested these networks by forcing them to “respond” using different amounts of computation, across all viewing conditions. We compared the three networks and humans using two metrics, accuracy range (difference between maximum and minimum accuracy when reaction time is varied) and correlation between speed-accuracy trade-off curves. MSDNet gives a better account than previous attempts without needing recurrence. When trained with noise, it shows high correlation (0.93) with human SAT. However, humans are much more flexible, with a large 51% accuracy range while the best network, MSDNet trained with noise, shows only 19%. Thus, our benchmark presents a challenging goal for future work that aims to model SAT.</p>
     
 
     
@@ -805,8 +745,8 @@
         <div class="row">
           <div class="col-12 col-md-3 pub-row-heading">Type</div>
           <div class="col-12 col-md-9">
-            <a href="/publication/#3">
-              Preprint
+            <a href="/publication/#1">
+              Conference paper
             </a>
           </div>
         </div>
@@ -822,7 +762,7 @@
       <div class="col-md-10">
         <div class="row">
           <div class="col-12 col-md-3 pub-row-heading">Publication</div>
-          <div class="col-12 col-md-9">Pre-print</div>
+          <div class="col-12 col-md-9">Poster at <em>Vision Science Society (VSS) Meeting</em></div>
         </div>
       </div>
       <div class="col-md-1"></div>
@@ -841,18 +781,6 @@
 
 
 
-<div class="article-tags">
-  
-  <a class="badge badge-light" href="/tag/visual-object-recognition/">visual object recognition</a>
-  
-  <a class="badge badge-light" href="/tag/computer-vision/">computer vision</a>
-  
-  <a class="badge badge-light" href="/tag/psychophysics/">psychophysics</a>
-  
-  <a class="badge badge-light" href="/tag/psychology/">Psychology</a>
-  
-</div>
-
 
 
 <div class="share-box" aria-hidden="true">
@@ -866,7 +794,7 @@
       
       
       <li>
-        <a href="https://twitter.com/intent/tweet?url=https://ajaysub110.github.io/publication/subramanian2021using/&amp;text=SATBench:%20A%20Benchmark%20of%20the%20Human%20Speed-Accuracy%20Tradeoff%20in%20Recognizing%20Objects" target="_blank" rel="noopener" class="share-btn-twitter">
+        <a href="https://twitter.com/intent/tweet?url=https://ajaysub110.github.io/publication/subramanian2022benchmarking/&amp;text=Benchmarking%20dynamic%20neural-network%20models%20of%20the%20human%20speed-accuracy%20tradeoff" target="_blank" rel="noopener" class="share-btn-twitter">
           <i class="fab fa-twitter"></i>
         </a>
       </li>
@@ -879,7 +807,7 @@
       
       
       <li>
-        <a href="https://www.facebook.com/sharer.php?u=https://ajaysub110.github.io/publication/subramanian2021using/&amp;t=SATBench:%20A%20Benchmark%20of%20the%20Human%20Speed-Accuracy%20Tradeoff%20in%20Recognizing%20Objects" target="_blank" rel="noopener" class="share-btn-facebook">
+        <a href="https://www.facebook.com/sharer.php?u=https://ajaysub110.github.io/publication/subramanian2022benchmarking/&amp;t=Benchmarking%20dynamic%20neural-network%20models%20of%20the%20human%20speed-accuracy%20tradeoff" target="_blank" rel="noopener" class="share-btn-facebook">
           <i class="fab fa-facebook"></i>
         </a>
       </li>
@@ -892,7 +820,7 @@
       
       
       <li>
-        <a href="mailto:?subject=SATBench:%20A%20Benchmark%20of%20the%20Human%20Speed-Accuracy%20Tradeoff%20in%20Recognizing%20Objects&amp;body=https://ajaysub110.github.io/publication/subramanian2021using/" target="_blank" rel="noopener" class="share-btn-email">
+        <a href="mailto:?subject=Benchmarking%20dynamic%20neural-network%20models%20of%20the%20human%20speed-accuracy%20tradeoff&amp;body=https://ajaysub110.github.io/publication/subramanian2022benchmarking/" target="_blank" rel="noopener" class="share-btn-email">
           <i class="fas fa-envelope"></i>
         </a>
       </li>
@@ -905,7 +833,7 @@
       
       
       <li>
-        <a href="https://www.linkedin.com/shareArticle?url=https://ajaysub110.github.io/publication/subramanian2021using/&amp;title=SATBench:%20A%20Benchmark%20of%20the%20Human%20Speed-Accuracy%20Tradeoff%20in%20Recognizing%20Objects" target="_blank" rel="noopener" class="share-btn-linkedin">
+        <a href="https://www.linkedin.com/shareArticle?url=https://ajaysub110.github.io/publication/subramanian2022benchmarking/&amp;title=Benchmarking%20dynamic%20neural-network%20models%20of%20the%20human%20speed-accuracy%20tradeoff" target="_blank" rel="noopener" class="share-btn-linkedin">
           <i class="fab fa-linkedin-in"></i>
         </a>
       </li>
@@ -918,7 +846,7 @@
       
       
       <li>
-        <a href="whatsapp://send?text=SATBench:%20A%20Benchmark%20of%20the%20Human%20Speed-Accuracy%20Tradeoff%20in%20Recognizing%20Objects%20https://ajaysub110.github.io/publication/subramanian2021using/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+        <a href="whatsapp://send?text=Benchmarking%20dynamic%20neural-network%20models%20of%20the%20human%20speed-accuracy%20tradeoff%20https://ajaysub110.github.io/publication/subramanian2022benchmarking/" target="_blank" rel="noopener" class="share-btn-whatsapp">
           <i class="fab fa-whatsapp"></i>
         </a>
       </li>
@@ -931,7 +859,7 @@
       
       
       <li>
-        <a href="https://service.weibo.com/share/share.php?url=https://ajaysub110.github.io/publication/subramanian2021using/&amp;title=SATBench:%20A%20Benchmark%20of%20the%20Human%20Speed-Accuracy%20Tradeoff%20in%20Recognizing%20Objects" target="_blank" rel="noopener" class="share-btn-weibo">
+        <a href="https://service.weibo.com/share/share.php?url=https://ajaysub110.github.io/publication/subramanian2022benchmarking/&amp;title=Benchmarking%20dynamic%20neural-network%20models%20of%20the%20human%20speed-accuracy%20tradeoff" target="_blank" rel="noopener" class="share-btn-weibo">
           <i class="fab fa-weibo"></i>
         </a>
       </li>
@@ -1118,15 +1046,6 @@
 
 
   
-  
-  <div class="article-widget content-widget-hr">
-    <h3>Related</h3>
-    <ul>
-      
-      <li><a href="/publication/subramanian2021reinforcement/">Reinforcement learning and its connections with neuroscience and psychology</a></li>
-      
-    </ul>
-  </div>
   
 
 
