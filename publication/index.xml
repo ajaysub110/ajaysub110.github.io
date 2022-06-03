@@ -13,14 +13,6 @@
     </image>
     
     <item>
-      <title>Benchmarking dynamic neural-network models of the human speed-accuracy tradeoff</title>
-      <link>https://ajaysub110.github.io/publication/subramanian2022benchmarking/</link>
-      <pubDate>Mon, 28 Feb 2022 00:00:00 +0000</pubDate>
-      <guid>https://ajaysub110.github.io/publication/subramanian2022benchmarking/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>mlGeNN: Accelerating SNN inference using GPU-Enabled Neural Networks</title>
       <link>https://ajaysub110.github.io/publication/turner2022mlgenn/</link>
       <pubDate>Mon, 28 Feb 2022 00:00:00 +0000</pubDate>
@@ -29,26 +21,10 @@
     </item>
     
     <item>
-      <title>SATBench: A Benchmark of the Human Speed-Accuracy Tradeoff in Recognizing Objects</title>
-      <link>https://ajaysub110.github.io/publication/subramanian2021using/</link>
-      <pubDate>Tue, 17 Aug 2021 00:00:00 +0000</pubDate>
-      <guid>https://ajaysub110.github.io/publication/subramanian2021using/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Reinforcement learning and its connections with neuroscience and psychology</title>
       <link>https://ajaysub110.github.io/publication/subramanian2021reinforcement/</link>
       <pubDate>Mon, 01 Feb 2021 00:00:00 +0000</pubDate>
       <guid>https://ajaysub110.github.io/publication/subramanian2021reinforcement/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Word2Brain2Image: Visual Reconstruction from Spoken Word Representations</title>
-      <link>https://ajaysub110.github.io/publication/subramanian2019word2brain2image/</link>
-      <pubDate>Thu, 12 Dec 2019 00:00:00 +0000</pubDate>
-      <guid>https://ajaysub110.github.io/publication/subramanian2019word2brain2image/</guid>
       <description></description>
     </item>
     
