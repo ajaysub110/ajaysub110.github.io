@@ -1,0 +1,266 @@
+\documentclass[10pt,letterpaper]{article}
+\usepackage[letterpaper,margin=0.7in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{mdwlist}
+\usepackage[default]{lato}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{fontawesome5} % Include fontawesome5 here
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{hyperref}
+
+\hypersetup{
+    colorlinks=true,       % false: boxed links; true: colored links
+    linkcolor=violet,        % color of internal links
+    filecolor=violet,        % color of file links
+    urlcolor=violet,         % color of external links
+    citecolor=violet         % color of citations
+}
+
+\DeclareFontFamily{U}{fontawesomeOne}{}
+\DeclareFontShape{U}{fontawesomeOne}{m}{n}
+{<-> FontAwesome--fontawesomeone}{}
+\DeclareRobustCommand\FAone{\fontencoding{U}\fontfamily{fontawesomeOne}\selectfont}
+\pagestyle{empty}
+\setlength{\tabcolsep}{0em}
+
+% indentsection style, used for sections that aren't already in lists
+% that need indentation to the level of all text in the document
+\newenvironment{indentsection}[1]%
+{\begin{list}{}%
+{\setlength{\leftmargin}{#1}}%
+     \item[]
+}
+{\end{list}}
+
+% opposite of above; bump a section back toward the left margin
+\newenvironment{unindentsection}[1]%
+{\begin{list}{}%
+{\setlength{\leftmargin}{-0.5#1}}%
+\item[]%
+}
+{\end{list}}
+
+% format two pieces of text, one left aligned and one right aligned
+\newcommand{\headerrow}[2]
+{\begin{tabular*}{\linewidth}{l@{\extracolsep{\fill}}r}
+#1 &
+#2 \\
+\end{tabular*}}
+
+% make "C++" look pretty when used in text by touching up the plus signs
+\newcommand{\CPP}
+{C\nolinebreak[4]\hspace{-.05em}\raisebox{.22ex}{\footnotesize\bf ++}}
+
+% and the actual content starts here
+\begin{document}
+
+
+\begin{center}
+	{\LARGE \textbf{Ajay Subramanian}}\\
+	New York, NY
+	\vspace{0.05cm}
+	\\
+    \href{mailto:as15003@nyu.edu}{ajay.subramanian@nyu.edu} 
+	\hspace{0.5cm}
+    \href{https://x.com/ajaysub110}{\raisebox{-0.2\height} {\Large \faTwitterSquare}} 
+	\hspace{0.5cm}
+	\href{https://github.com/ajaysub110}{\raisebox{-0.2\height}{\Large \faGithubSquare}} 
+	\hspace{0.5cm}
+	\href{https://www.linkedin.com/in/ajaysub110/}{\raisebox{-0.2\height}{\Large \faLinkedin}} 
+	\hspace{0.5cm}
+	\href{https://scholar.google.com/citations?user=6cyu_EgAAAAJ&hl=en}{\raisebox{-0.2\height}{\Large \faGraduationCap}}
+
+\end{center}
+
+\hrule
+ % Add some vertical space before the paragraph
+\vspace{-1em}
+\subsection*{\Large Research Interests}
+% Research Interests and Skills
+% I am passionate about studying naturalistic visual perception in humans and machine learning systems. I have extensive experience in training and evaluating deep learning models using \href{https://pytorch.org/}{PyTorch} and \href{https://www.tensorflow.org/}{TensorFlow}, and am also proficient at designing and conducting online human psychophysics experiments. I leverage tools such as \href{https://lab.js.org/}{lab.js} and \href{https://www.psychopy.org/}{PsychoPy} for experiment design, and platforms like \href{https://www.prolific.com/}{Prolific}, \href{https://pavlovia.org/}{Pavlovia}, and \href{https://www.mturk.com/}{Amazon MTurk} for participant recruitment and data collection.
+
+% I am passionate about studying naturalistic visual perception in humans and machine learning systems. 
+I am passionate about developing machine learning systems capable of robust, general, human-like visual perception. 
+I have extensive experience in training and evaluating deep learning models, and am also proficient at designing and conducting online human psychophysics experiments. For deep learning, I have primarily used \href{https://pytorch.org/}{PyTorch} and \href{https://www.tensorflow.org/}{TensorFlow} to train both discriminative and generative models (with \href{https://lightning.ai/docs/pytorch/stable/}{PyTorch Lightning}, \href{https://huggingface.co/docs/accelerate/en/index}{Hugging Face Accelerate}, \href{https://keras.io/}{Keras}) and evaluate them (with \href{https://github.com/Trusted-AI/adversarial-robustness-toolbox}{ART}, \href{https://github.com/bethgelab/model-vs-human}{model-vs-human}, \href{https://github.com/LabForComputationalVision/pyrtools}{pyrtools}). I leverage tools such as \href{https://lab.js.org/}{lab.js} and \href{https://www.psychopy.org/}{PsychoPy} for human experiment design, and platforms like \href{https://www.prolific.com/}{Prolific}, \href{https://pavlovia.org/}{Pavlovia}, and \href{https://www.mturk.com/}{Amazon MTurk} for participant recruitment and data collection.
+\vspace{1em}
+
+\hrule
+\vspace{-1em}
+\subsection*{\Large Education}
+
+\begin{itemize}[leftmargin=1em,itemsep=0.3em]
+		
+	\item
+	      \headerrow
+	      {\textbf{New York University}}
+	      {\textbf{New York, NY, USA}}
+	      \headerrow
+	      {PhD Cognition \& Perception (\textbf{GPA:} 3.9/4.0)}
+	      {Sep 2021 -- May 2026 (expected)}
+		
+	\item
+	      \headerrow
+	      {\textbf{Birla Institute of Technology \& Science (BITS), Pilani}}
+	      {\textbf{Goa, India}}
+	      \headerrow
+	      {B.E. Electronics \& Communication Engineering}
+	      {Aug 2017 -- 2021}
+	      	      
+\end{itemize}
+
+\hrule
+\vspace{-1em}
+
+\subsection*{\Large Research and Professional Experience}
+
+\renewcommand\labelitemi{}
+\renewcommand\labelitemii{$\bullet$}
+\begin{itemize}[leftmargin=1em,itemsep=0.3em]
+    % \item
+    % \label{llnl}
+    %     \headerrow
+    %     {\textbf{Incoming Research Scientist Intern, Meta Reality Labs}}
+    %     {\textbf{Redmond, WA, USA}}
+    %     \headerrow
+    %     {Manager: {\href{https://scholar.google.com/citations?user=WiWKsngAAAAJ&hl=en&oi=ao}{Dr. Karl Ridgeway}}}
+    %     {\emph{May 2025 -- Nov 2025}}
+    %     \begin{itemize*}
+    %         \item Will develop datasets, metrics and benchmarks for the task of learning representations from egocentric visual data collected using Augmented Reality (AR) headsets.
+    %         \item My project will aim to evaluate the ability of existing vision-language models to perform goal inference and prediction in natural egocentric video.
+    %     \end{itemize*} 
+
+    \item
+    \label{llnl}
+        \headerrow
+        {\textbf{Computing Graduate Student Intern, Lawrence Livermore National Lab (LLNL)}}
+        {\textbf{Livermore, CA, USA}}
+        \headerrow
+        {Advisor: {\href{https://scholar.google.com/citations?user=SQpJmOgAAAAJ&hl=en&oi=ao}{Dr. Bhavya Kailkhura}}}
+        {\emph{May 2024 -- Aug 2024}}
+        \begin{itemize*}
+            \item Developed a method to gradually add texture features of a given target object category to naturalistic images generated using a text-to-image diffusion model.
+            \item Implemented this method by first finetuning a pretrained diffusion model to generate images that fool a texture-biased classifier and then using low-rank adapters (LoRA) to gradually interpolate between different levels of texture perturbation.
+            \item Utilized this method to generate texture psychometric functions for several deep learning based classifiers, thus treating texture as a one-dimensional psychophysical variable.
+        \end{itemize*}  
+     
+     \item
+        \headerrow
+        {\textbf{Graduate Student Researcher, New York University}}
+        {\textbf{New York, NY, USA}}
+        \headerrow
+        {Advisor: {\href{https://www.pellilab.com/}{Prof. Denis G. Pelli}}}
+        {\emph{Aug 2021 -- Present}}
+        \begin{itemize*}
+            \item Currently testing the robustness of LPIPS, a popular perceptual similarity metric, to semantic adversarial attacks using reward-based finetuning of a text-to-image diffusion prior. This work builds on my internship project at \hyperref[llnl]{LLNL}.
+            \item Measured the sensitivity of human and machine ImageNet object recognition to noise added at each octave-wide spatial-frequency band (levels of a laplacian pyramid). Observed that while humans are affected by noise in a narrow, octave-wide band, machines, even the most ``robust'' ones, are sensitive to noise at 2-4 times as many frequencies.
+            \item Currently extending spatial-frequency project to fMRI data. Designed and generated stimuli for fMRI experiment and measuring channels across visual and category-selective ROIs.
+            \item Collected a public psychophysics dataset of 148 observers performing timed 16-way ImageNet object recognition. Benchmarked the ability of humans and ``dynamic'' neural network systems to exhibit a flexible speed-accuracy tradeoff (SAT) in ImageNet object recognition. Observed that parallel cascaded networks best capture human SAT.
+            
+        \end{itemize*}  
+
+    \item
+        \headerrow
+        {\textbf{Research Intern, Harvard University}}
+        {\textbf{Cambridge, MA, USA}}
+        \headerrow
+        {Advisor: {\href{https://gershmanlab.com/}{Prof. Samuel Gershman}, \href{https://pedrotsividis.com/}{Dr. Pedro Tsividis}}}
+        {\emph{Jun 2020 -- Aug 2021}}
+        \begin{itemize*}
+            \item Contributed to a large project modeling human learning of complex video games as a theory-based modeling, exploration and planning agent (EMPA).
+            \item Focused on extending EMPA from accepting symbolic inputs to visual inputs. I worked on adding a Perception module and improving its Rule-learning module. Building Perception involved classical computer vision algorithms for segmentation, object detection and tracking. Rule-learning used a DFS-based tree-search and temporal-difference value-updates followed by rule pruning.
+        \end{itemize*}	
+
+    \item
+        \headerrow
+        {\textbf{Research Assistant, Cognitive Neuroscience Lab @ BITS Goa}}
+        {\textbf{Goa, India}}
+        \headerrow
+        {Advisor: {\href{https://bitscogneuro.in/}{Prof. Veeky Baths}}}
+        {\emph{Aug 2019 -- May 2021}}
+        \begin{itemize*}
+            \item Studied the visual representation of spoken words by developing Word2Brain2Image, a cross-modal decoding method that utilized a variational autoencoder (VAE) to decode images of handwritten digits from EEG signals induced by spoken audio of numerical digits.
+            \item Conducted a wide-ranging review of the connections between reinforcement learning as it is studied in computer science, neuroscience and psychology. Published as review article in \textit{Elsevier Neural Networks}.
+        \end{itemize*}	
+
+    \item
+        \headerrow
+        {\textbf{Google Summer of Code Intern, International Neuroinformatics Coordinating Facility (INCF)}}
+        {\textbf{Remote}}
+        \headerrow
+        {Advisor: {\href{https://profiles.sussex.ac.uk/p206151-thomas-nowotny}{Prof. Thomas Nowotny}, \href{https://profiles.sussex.ac.uk/p415734-james-knight}{Dr. James Knight}}}
+        {\emph{May 2019 -- Aug 2019}}
+        \begin{itemize*}
+            \item Developed \href{https://github.com/genn-team/ml_genn}{mlGeNN}, a library to convert pretrained Keras deep learning models to GPU-enabled spiking neural networks (SNNs) while ensuring minimal losses in performance.
+            \item Demonstrated the utility of mlGeNN by converting CIFAR10- and ImageNet-trained ResNets to SNN equivalents.
+        \end{itemize*}	
+\end{itemize}
+
+
+\hrule
+\vspace{-1em}
+\subsection*{\Large Journal and Conference Publications}
+\begin{itemize}[leftmargin=1em,itemsep=0.3em]
+
+    \item \textbf{Subramanian, A.}, Price, S., Kumbhar, O., Sizikova, E., Majaj, N. J., Pelli, D. G. (2025). Benchmarking the speed–accuracy tradeoff in object recognition by humans and neural networks. \textit{Journal of Vision, 25(1)}, 4-4. \textit{Also presented at VSS'22}. \href{https://doi.org/10.1167/jov.25.1.4}{Link}
+
+    \item \textbf{Subramanian, A.}, Sizikova, E., Majaj, N. J., Pelli, D. G. (2024). Spatial-frequency channels, shape bias, and adversarial robustness. \textit{Advances in neural information processing systems (NeurIPS), 36}. \textbf{[Oral presentation]}. \textit{Also presented at VSS'23, ECVP'23, COSYNE'23}. \href{https://proceedings.neurips.cc/paper_files/paper/2023/hash/0cdc1e85736d9c01d366cbf9b4b81672-Abstract-Conference.html}{Link}
+
+    \item \textbf{Subramanian, A.}, Chitlangia, S., Baths, V. (2022). Reinforcement learning and its connections with neuroscience and psychology. \textit{Neural Networks, 145}, 271-287. \href{https://www.sciencedirect.com/science/article/abs/pii/S0893608021003944}{Link}
+
+    \item Turner, J. P., Knight, J. C., \textbf{Subramanian, A.}, Nowotny, T. (2022). mlGeNN: accelerating SNN inference using GPU-enabled neural networks. \textit{Neuromorphic Computing and Engineering, 2}(2), 024002.
+
+    \item Tsividis, P., Loula, J., Burga, J., Rodriguez, J. P., Arnaud, S., Foss, N., Campero, A., \textbf{Subramanian, A.}, Pouncy, T., Gershman, S., Tenenbaum, J. B. (2023). Human Learning of Complex Novel Tasks as Theory-Based Modeling, Exploration, and Planning. \textit{Submitted to Philosophical Transactions of the Royal Society A}.
+    
+    \item Ozcelik, F., \textbf{Subramanian, A.}, Majaj, N. J., Pelli, D. G. (2024). Revealing spatial-frequency channels in an ensemble encoding model of human fMRI. \textit{Accepted to NeurIPS Workshop on Unifying Representations in Neural Models (UniReps)}. \href{https://openreview.net/forum?id=O8nVUbyvTC#discussion}{Link}
+
+    \item Zhou, J. Y., Chun, C., \textbf{Subramanian, A.}, Simoncelli, E., P. (2023). Comparing models of neural representation based on their metric tensors. \textit{NeurIPS Workshop on Unifying Representations in Neural Models (UniReps). Also presented at VSS'23}. \href{https://openreview.net/forum?id=mDr0o2WU2n}{Link}
+
+    \item \textbf{Subramanian, A.}, Majaj, N., Pelli, D. G. (2024). Influence of background on the spatial-frequency channel for object recognition. \textit{Poster Presentation at Vision Science Society (VSS) Meeting}.
+
+    \item \textbf{Subramanian, A.}, Patil, R., Baths, V. (2019). Word2Brain2Image: Visual Reconstruction from Spoken Word Representations. \textit{Poster Presentation at Annual Conference of the Association for Cognitive Science in India (ACCS)}.
+    
+\end{itemize}
+
+\hrule
+\vspace{-1em}
+\subsection*{\Large Teaching and Volunteering}
+\begin{itemize}[leftmargin=1em,itemsep=0.3em]
+    \item \textbf{Teaching Assistant, ``Mathematical Tools for Neural and Cognitive Science (Math Tools)'' at New York University}. \textit{Instructors: \href{https://www.cns.nyu.edu/~eero/}{Prof. Eero Simoncelli}, \href{https://as.nyu.edu/faculty/michael-s-landy.html}{Prof. Michael Landy}}. Led lab sessions, graded homework assignments, and conducted office hours for a graduate course covering fundamental mathematical methods for visualization, analysis, and modeling of neural and cognitive data and systems.
+
+    \item \textbf{Research Mentorship at New York University}: Furkan Özçelik (PhD candidate, CNRS Paris), Amir Ozhan Dehghani (Undergrad, McGill University), Sara B. Price (Masters student, NYU), Kieran Sim (Masters student, NYU), Pedro Galarza (Masters student, NYU), Jack Epstein (Masters student, NYU).
+
+    \item \textbf{Reviewer}: ICLR (2025), NeurIPS Behavioral ML Workshop (2024), CCN (2024), ICLR Re-Align Workshop (2024), NeurIPS Track on Datasets and Benchmarks (2022-2024), NeurIPS UniReps Workshop (2023-2024), NeurIPS SVRHM Workshop (2022), Journal of Neural Engineering (2022), ECML-PKDD (2022), Conference on Health, Inference, and Learning (CHIL 2022-2023).
+
+    \item \textbf{Core Member, Society for Artificial Intelligence \& Deep Learning (SAIDL) @ BITS Pilani Goa}. Instructed student-taught technical courses on Deep Learning and Deep Reinforcement Learning, led research projects, and co-organized the first iteration of a now-annual \href{https://sites.google.com/view/aisymposium2020}{AI symposium} at BITS Pilani Goa. All of these efforts were aimed at improving AI outreach at Indian engineering universities as part of \href{https://www.saidl.in/}{SAIDL}, a student-led organization.
+ 
+\end{itemize}
+
+\hrule
+\vspace{-1em}
+\subsection*{\Large Invited Talks}
+\begin{itemize}[leftmargin=1em,itemsep=0.3em]
+     \item \textbf{Spatial-frequency channels, shape bias and adversarial robustness} (2024). \textit{The Murty Lab @ Georgia Institute of Technology, Atlanta, GA}.
+     \item \textbf{The role of spatial frequency in object recognition} (2023). \textit{Guest lecture: Introduction to Cognitive Neuroscience, BITS Goa, India}.
+     \item \textbf{The temporal dimension of object recognition} (2022). \textit{Guest lecture: Introduction to Cognitive Neuroscience, BITS Goa, India}.
+     \item \textbf{Word2Brain2Image: A data-driven approach towards understanding representations in the brain} (2020). \textit{Round table track: Data issues in Cognitive Neuroscience, International CCCP Symposium}.
+     \item \textbf{Open Source Development and Google Summer of Code} (2019). \textit{Technology Incubator Programme Seminar, BITS Goa, India}.
+
+\end{itemize}
+
+\hrule
+\vspace{-1em}
+\subsection*{\Large Awards and Honors}
+\begin{itemize}[leftmargin=1em,itemsep=0.3em]
+     \item \textbf{Outstanding Reviewer}, NeurIPS Track on Datasets \& Benchmarks (2022).
+     \item \textbf{MacCracken Fellowship for doctoral studies}, New York University (2021).
+     \item \textbf{Matic Bounty Prize} InOut Hackathon, Bangalore, India (2019).
+     \item \textbf{Literacy and Cognition Project research award}, Max Planck Institute for Psycholinguistics (2018).
+     \item \textbf{National Talent Search Scholarship}, Government of India (2015).
+\end{itemize}
+
+\hrule
+
+\end{document}
