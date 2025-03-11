@@ -44,16 +44,97 @@ def parse_latex_publications(tex_file):
         link_match = re.search(r'\\href{(.*?)}{.*?}', item)
         link = link_match.group(1) if link_match else None
         
-        # Remove LaTeX commands
+        # Remove LaTeX commands first to make parsing easier
         clean_text = re.sub(r'\\textbf{(.*?)}', r'\1', item)
         clean_text = re.sub(r'\\href{.*?}{(.*?)}', r'\1', clean_text)
         clean_text = re.sub(r'\\textit{(.*?)}', r'\1', clean_text)
         clean_text = re.sub(r'\\emph{(.*?)}', r'\1', clean_text)
         
-        publications.append({
-            'text': clean_text.strip(),
-            'link': link
-        })
+        # Split by periods to get parts
+        parts = clean_text.split('.')
+        
+        # Try to extract parts based on the year
+        year_match = re.search(r'\((\d{4})\)', clean_text)
+        if year_match and len(parts) >= 2:
+            # Find which part contains the year
+            year_part_index = -1
+            for i, part in enumerate(parts):
+                if '(' + year_match.group(1) + ')' in part:
+                    year_part_index = i
+                    break
+            
+            if year_part_index != -1:
+                # Get all authors (everything before the year part)
+                authors_parts = parts[:year_part_index]
+                authors = '. '.join(authors_parts).strip()
+                if authors.endswith('.'):
+                    authors = authors[:-1]
+                
+                # Title is in the part after the year
+                if year_part_index < len(parts) - 1:
+                    title = parts[year_part_index + 1].strip()
+                else:
+                    title = "Unknown Title"
+                
+                # Extract just the venue name without the year
+                venue = ""
+                if year_part_index < len(parts):
+                    # Get the part with the year
+                    year_part = parts[year_part_index]
+                    
+                    # Remove the year and parentheses
+                    venue = re.sub(r'\(\d{4}\)', '', year_part).strip()
+                    
+                    # Remove "Also presented at" and anything after it
+                    venue = re.sub(r'Also presented at.*', '', venue).strip()
+                    
+                    # Remove "Link" and anything after it
+                    venue = re.sub(r'Link:.*', '', venue).strip()
+                    venue = re.sub(r'Link .*', '', venue).strip()
+                    
+                    # Remove leading period if present
+                    venue = venue.lstrip('.')
+                    venue = venue.strip()
+                    
+                    # If there are additional venue parts, add them
+                    if year_part_index + 2 < len(parts):
+                        # Check if the next parts contain "Also presented" or "Link"
+                        additional_parts = []
+                        for part in parts[year_part_index + 2:]:
+                            part = part.strip()
+                            if "Also presented" not in part and not part.startswith("Link"):
+                                additional_parts.append(part)
+                            else:
+                                break
+                        
+                        if additional_parts:
+                            # Join without adding periods
+                            additional_venue = ". ".join(additional_parts)
+                            # Only add if we have a venue already
+                            if venue:
+                                venue += ". " + additional_venue
+                            else:
+                                venue = additional_venue
+                
+                publications.append({
+                    'title': title,
+                    'authors': authors,
+                    'venue': venue,
+                    'year': year_match.group(1),
+                    'link': link
+                })
+            else:
+                # Fallback if we can't parse correctly
+                publications.append({
+                    'text': clean_text.strip(),
+                    'link': link
+                })
+        else:
+            # Fallback if no year found or not enough parts
+            publications.append({
+                'text': clean_text.strip(),
+                'link': link
+            })
     
     return publications
 
@@ -61,32 +142,32 @@ def generate_html(publications):
     html = '<h3>Publications</h3>\n<ul class="publications">\n'
     
     for pub in publications:
-        # Extract title, authors, and venue
-        text = pub['text']
-        
-        # Try to extract title, authors, and venue
-        parts = text.split('.')
-        title = parts[0].strip()
-        authors = parts[1].strip() if len(parts) > 1 else ""
-        venue = '.'.join(parts[2:]).strip() if len(parts) > 2 else ""
-        
-        # Extract year if present
-        year_match = re.search(r'\((\d{4})\)', text)
-        year = year_match.group(1) if year_match else ""
-        
-        # Format the publication
         html += '    <li>\n'
-        html += '        <div class="pub-title">\n'
         
-        if pub['link']:
-            html += f'            <a href="{pub["link"]}">{title}</a>\n'
+        if 'title' in pub:
+            # Display title first
+            html += '        <div class="pub-title">\n'
+            if pub['link']:
+                html += f'            <a href="{pub["link"]}">{pub["title"]}</a>\n'
+            else:
+                html += f'            <span>{pub["title"]}</span>\n'
+            
+            # Add year if available
+            if 'year' in pub:
+                html += f'            <span class="pub-year">({pub["year"]})</span>\n'
+            
+            html += '        </div>\n'
+            
+            # Display authors and venue
+            html += f'        <span class="pub-authors">{pub["authors"]}</span>\n'
+            html += f'        <span class="pub-venue">{pub["venue"]}</span>\n'
         else:
-            html += f'            <span>{title}</span>\n'
+            # Fallback to original format if parsing failed
+            if pub['link']:
+                html += f'        <a href="{pub["link"]}">{pub["text"]}</a>\n'
+            else:
+                html += f'        <span>{pub["text"]}</span>\n'
         
-        html += f'            <span class="pub-year">{year}</span>\n'
-        html += '        </div>\n'
-        html += f'        <span class="pub-authors">{authors}</span>\n'
-        html += f'        <span class="pub-venue">{venue}</span>\n'
         html += '    </li>\n'
     
     html += '</ul>\n'
