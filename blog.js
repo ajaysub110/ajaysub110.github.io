@@ -98,8 +98,8 @@ async function loadBlogList() {
 
 // Function to generate a shareable link for a blog post
 function getShareableLink(file) {
-    const baseUrl = window.location.origin + window.location.pathname.replace(/\/[^\/]*$/, '/');
-    return `${baseUrl}blog-post.html?file=${encodeURIComponent(file)}&direct=true`;
+    // Use the domain name instead of relative paths
+    return `https://ajaysubramanian.com/blog-post.html?file=${encodeURIComponent(file)}&direct=true`;
 }
 
 // Function to load a single blog post
