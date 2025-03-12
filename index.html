@@ -26,9 +26,9 @@
 		<script src="config.js"></script>
 	</head>
 	<body>
-		<div class="navigation">
+		<div class="navigation" id="main-navigation" style="display: none;">
 			<a href="index.html" class="active">Home</a>
-			<a href="blog.html" id="writings-link" style="display: none;">Writings</a>
+			<a href="blog.html" id="writings-link">Writings</a>
 		</div>
 		
 		<h1>Ajay Subramanian</h1>
@@ -140,11 +140,14 @@ I have extensive experience in training and evaluating deep learning models, and
 		</a>
 		
 		<script>
-			// Show/hide Writings link based on feature flag
+			// Show/hide navigation based on feature flag
 			document.addEventListener('DOMContentLoaded', () => {
+				const navigation = document.getElementById('main-navigation');
 				const writingsLink = document.getElementById('writings-link');
+				
 				if (siteConfig.features.showWritings) {
-					writingsLink.style.display = '';
+					// Show navigation with both links
+					navigation.style.display = '';
 				}
 			});
 			
