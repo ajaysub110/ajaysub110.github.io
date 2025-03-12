@@ -10,12 +10,22 @@ body {
 	box-sizing: border-box;
 }
 
+/* Profile image styling */
+.profile-image {
+	float: right;
+	width: 300px;
+	margin-top: -60px;
+	margin-left: 20px;
+	margin-bottom: 15px;
+}
+
 /* Contact icons styling */
 .contact-icons {
 	margin: 1.5em 0 2.5em 0;
 	display: flex;
 	flex-wrap: wrap;
 	gap: 1.5em;
+	justify-content: flex-start;
 }
 
 .contact-icons a {
@@ -187,6 +197,11 @@ li {
 	h3 {
 		font-size: 1.9em;
 	}
+	
+	.profile-image {
+		width: 250px;
+		margin-top: -40px;
+	}
 }
 
 @media (max-width: 768px) {
@@ -205,8 +220,18 @@ li {
 		margin-top: 1.5em;
 	}
 	
+	.profile-image {
+		width: 200px;
+		margin-top: -30px;
+	}
+	
 	.contact-icons {
 		gap: 1.2em;
+		justify-content: flex-start;
+	}
+	
+	.contact-icons a {
+		font-size: 1.4em;
 	}
 	
 	.pub-authors {
@@ -224,9 +249,20 @@ li {
 		font-size: 2.3em;
 	}
 	
+	.profile-image {
+		width: 180px;
+		float: none;
+		display: block;
+		margin: 0 auto 20px auto;
+	}
+	
 	.contact-icons {
-		gap: 1em;
+		gap: 1.5em;
 		justify-content: center;
+	}
+	
+	.contact-icons a {
+		font-size: 1.3em;
 	}
 	
 	.pub-authors {
@@ -244,12 +280,26 @@ li {
 		font-size: 2.2em;
 		margin-top: 1em;
 		margin-bottom: 0.6em;
+		text-align: center;
 	}
 	
 	h3 {
 		font-size: 1.5em;
 		margin-top: 1.2em;
 		margin-bottom: 0.6em;
+	}
+	
+	.profile-image {
+		width: 150px;
+	}
+	
+	.contact-icons {
+		gap: 1.8em;
+		justify-content: center;
+	}
+	
+	.contact-icons a {
+		font-size: 1.2em;
 	}
 	
 	.pub-title {
@@ -285,9 +335,19 @@ li {
 		font-size: 1.4em;
 	}
 	
+	.profile-image {
+		width: 130px;
+	}
+	
 	.contact-icons {
-		flex-direction: column;
-		align-items: center;
-		gap: 0.8em;
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 1.2em;
+		justify-items: center;
+		width: 100%;
+	}
+	
+	.contact-icons a {
+		font-size: 1.2em;
 	}
 }
