@@ -236,10 +236,34 @@ li {
 .blog-meta {
 	margin-bottom: 2em;
 	color: #666;
+	padding-bottom: 1em;
+	border-bottom: 1px solid #ddd;
+}
+
+.blog-post h1 {
+	max-width: 70%;
+	line-height: 1.3;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+	hyphens: auto;
 }
 
 .blog-content {
 	line-height: 1.8;
+	position: relative;
+	padding-bottom: 3em;
+}
+
+.blog-content::after {
+	content: "";
+	display: block;
+	width: 30%;
+	height: 1px;
+	background-color: #ddd;
+	position: absolute;
+	bottom: 1em;
+	left: 50%;
+	transform: translateX(-50%);
 }
 
 .blog-content p {
@@ -344,6 +368,15 @@ li {
 	.pub-authors {
 		max-width: 85%;
 	}
+	
+	.blog-post h1 {
+		max-width: 100%;
+		font-size: 2.2em;
+	}
+	
+	.blog-content::after {
+		width: 40%;
+	}
 }
 
 @media (max-width: 600px) {
@@ -441,6 +474,15 @@ li {
 	
 	.publications li::before {
 		left: 0;
+	}
+	
+	.blog-post h1 {
+		max-width: 100%;
+		font-size: 1.9em;
+	}
+	
+	.blog-content::after {
+		width: 50%;
 	}
 }
 
