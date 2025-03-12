@@ -3,9 +3,13 @@ body {
 	font-family: 'adobe-caslon-pro', 'EB Garamond', Georgia, serif;
 	margin-left: 100px;
 	margin-right: 100px;
-	font-size: 18px;
+	font-size: 20px;
 	background-color: #f0efea;
-	line-height: 1.6;
+	line-height: 1.7;
+	max-width: 1200px;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 0 20px;
 }
 
 /* Contact icons styling */
@@ -16,7 +20,7 @@ body {
 }
 
 .contact-icons a {
-	font-size: 1.4em;
+	font-size: 1.5em;
 	color: #333;
 	transition: color 0.2s ease, transform 0.2s ease;
 }
@@ -37,18 +41,20 @@ body {
 
 h1 {
 	font-family: 'adobe-caslon-pro', 'EB Garamond', Georgia, serif;
-	font-size: 2.8em;
+	font-size: 3em;
 	margin-top: 2em;
 	margin-bottom: 1em;
 	font-weight: normal;
+	line-height: 1.2;
 }
 
 h3 {
 	font-family: 'adobe-caslon-pro', 'EB Garamond', Georgia, serif;
-	font-size: 1.8em;
+	font-size: 2em;
 	margin-top: 2em;
 	margin-bottom: 1em;
 	font-weight: normal;
+	line-height: 1.3;
 }
 
 a {
@@ -83,10 +89,12 @@ a:hover {
 p {
 	max-width: 1500px;
 	margin-bottom: 2em;
+	letter-spacing: 0.01em;
 }
 
 li {
 	max-width: 1500px;
+	margin-bottom: 0.5em;
 }
 
 .publications {
@@ -96,9 +104,12 @@ li {
 }
 
 .publications li {
-	margin-bottom: 1.5em;
+	margin-bottom: 2em;
 	position: relative;
 	padding-left: 2em;
+	max-width: 100%;
+	overflow-wrap: break-word;
+	box-sizing: border-box;
 }
 
 .publications li::before {
@@ -113,26 +124,100 @@ li {
 	display: flex;
 	justify-content: space-between;
 	align-items: baseline;
-	margin-bottom: 0.3em;
-	font-size: 1.1em;
+	margin-bottom: 0.4em;
+	font-size: 1.15em;
+	flex-wrap: wrap;
+	gap: 0.5em;
+	width: 100%;
+	box-sizing: border-box;
 }
 
-.pub-title a {
-	font-weight: normal;
+.pub-title a, .pub-title span:not(.pub-year) {
+	flex: 1;
+	min-width: 0;
+	max-width: 80%;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+	word-break: break-word;
+	hyphens: auto;
 }
 
 .pub-year {
 	font-weight: normal;
 	color: #666;
 	margin-left: 1em;
+	flex-shrink: 0;
 }
 
 .pub-authors {
 	display: block;
-	margin-bottom: 0.3em;
+	margin-bottom: 0.4em;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+	word-break: break-word;
+	hyphens: auto;
+	width: 100%;
+	max-width: 70%;
+	box-sizing: border-box;
+	white-space: normal;
 }
 
 .pub-venue {
 	display: block;
 	font-style: italic;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+	word-break: break-word;
+	hyphens: auto;
+	width: 100%;
+	box-sizing: border-box;
+	white-space: normal;
+}
+
+/* Media queries for responsive design */
+@media (max-width: 768px) {
+	body {
+		font-size: 18px;
+		margin-left: 20px;
+		margin-right: 20px;
+		padding: 0 10px;
+	}
+	
+	h1 {
+		font-size: 2.5em;
+	}
+	
+	h3 {
+		font-size: 1.7em;
+	}
+	
+	.contact-icons {
+		gap: 1em;
+	}
+}
+
+@media (max-width: 480px) {
+	body {
+		font-size: 16px;
+		margin-left: 15px;
+		margin-right: 15px;
+	}
+	
+	h1 {
+		font-size: 2.2em;
+		margin-top: 1.5em;
+	}
+	
+	h3 {
+		font-size: 1.5em;
+	}
+	
+	.pub-title {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+	
+	.pub-year {
+		margin-left: 0;
+	}
 }
