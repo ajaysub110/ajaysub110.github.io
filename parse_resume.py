@@ -17,6 +17,18 @@ def parse_latex_research_interests(tex_file):
     clean_text = re.sub(r'\\subsection\*{\\Large Research Interests}', '', text)
     clean_text = re.sub(r'\\vspace{1em}', '', clean_text)
     clean_text = re.sub(r'\\href{(.*?)}{(.*?)}', r'<a href="\1">\2</a>', clean_text)
+    
+    # Remove "Research Interests and Skills:" part
+    clean_text = re.sub(r'Research Interests and Skills:?', '', clean_text)
+    
+    # Remove any commented out lines (lines starting with % in LaTeX)
+    clean_text = re.sub(r'%.*?\n', '\n', clean_text)
+    
+    # Remove any lines that are just whitespace
+    lines = clean_text.split('\n')
+    clean_lines = [line for line in lines if line.strip()]
+    clean_text = '\n'.join(clean_lines)
+    
     clean_text = clean_text.strip()
     
     return clean_text
@@ -154,7 +166,7 @@ def generate_html(publications):
             
             # Add year if available
             if 'year' in pub:
-                html += f'            <span class="pub-year">({pub["year"]})</span>\n'
+                html += f'            <span class="pub-year">{pub["year"]}</span>\n'
             
             html += '        </div>\n'
             
