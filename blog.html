@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-TW9P59FKLZ"></script>
+		<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'G-TW9P59FKLZ');
+		</script>
+
+		<title>Ajay Subramanian - Writings</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Adobe Fonts (Typekit) -->
+		<link rel="stylesheet" href="https://use.typekit.net/yvx8kro.css">
+		<!-- Fallback Google Fonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&display=swap" rel="stylesheet">
+		<!-- Font Awesome for icons -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+		<link rel="stylesheet" href="stylesheet.css">
+		<script src="config.js"></script>
+		<script src="blog.js"></script>
+	</head>
+	<body>
+		<div class="navigation">
+			<a href="index.html">Home</a>
+			<a href="blog.html" class="active">Writings</a>
+		</div>
+		
+		<h1>Writings</h1>
+
+		<div class="blog-list">
+			<!-- Blog entries will be loaded here by JavaScript -->
+		</div>
+
+		<a href="#" id="back-to-top" class="back-to-top" aria-label="Back to top">
+			<i class="fa-solid fa-arrow-up"></i>
+		</a>
+		
+		<script>
+			// Check if Writings feature is enabled
+			document.addEventListener('DOMContentLoaded', () => {
+				if (!siteConfig.features.showWritings) {
+					// Redirect to home page if Writings feature is disabled
+					window.location.href = 'index.html';
+				} else {
+					// Load blog posts when page loads
+					loadBlogList();
+				}
+			});
+			
+			// Back to top button functionality
+			const backToTopButton = document.getElementById('back-to-top');
+			
+			// Show button when user scrolls down 300px
+			window.addEventListener('scroll', () => {
+				if (window.scrollY > 300) {
+					backToTopButton.classList.add('show');
+				} else {
+					backToTopButton.classList.remove('show');
+				}
+			});
+			
+			// Smooth scroll to top when button is clicked
+			backToTopButton.addEventListener('click', (e) => {
+				e.preventDefault();
+				window.scrollTo({
+					top: 0,
+					behavior: 'smooth'
+				});
+			});
+		</script>
+	</body>
+</html> 

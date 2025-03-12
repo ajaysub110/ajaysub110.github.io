@@ -19,13 +19,19 @@
 		<!-- Fallback Google Fonts -->
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&display=swap" rel="stylesheet">
 		<!-- Font Awesome for icons -->
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 		<link rel="stylesheet" href="stylesheet.css">
+		<script src="config.js"></script>
 	</head>
 	<body>
-			<h1>Ajay Subramanian</h1>
+		<div class="navigation">
+			<a href="index.html" class="active">Home</a>
+			<a href="blog.html" id="writings-link" style="display: none;">Writings</a>
+		</div>
+		
+		<h1>Ajay Subramanian</h1>
 
 		<!-- picture -->
 		<img class="profile-image" src="assets/ajay_pangonglake.jpeg" alt="Ajay Subramanian">
@@ -128,5 +134,40 @@ I have extensive experience in training and evaluating deep learning models, and
         <span class="pub-venue">Poster Presentation at Annual Conference of the Association for Cognitive Science in India (ACCS). </span>
     </li>
 </ul>
+
+		<a href="#" id="back-to-top" class="back-to-top" aria-label="Back to top">
+			<i class="fa-solid fa-arrow-up"></i>
+		</a>
+		
+		<script>
+			// Show/hide Writings link based on feature flag
+			document.addEventListener('DOMContentLoaded', () => {
+				const writingsLink = document.getElementById('writings-link');
+				if (siteConfig.features.showWritings) {
+					writingsLink.style.display = '';
+				}
+			});
+			
+			// Back to top button functionality
+			const backToTopButton = document.getElementById('back-to-top');
+			
+			// Show button when user scrolls down 300px
+			window.addEventListener('scroll', () => {
+				if (window.scrollY > 300) {
+					backToTopButton.classList.add('show');
+				} else {
+					backToTopButton.classList.remove('show');
+				}
+			});
+			
+			// Smooth scroll to top when button is clicked
+			backToTopButton.addEventListener('click', (e) => {
+				e.preventDefault();
+				window.scrollTo({
+					top: 0,
+					behavior: 'smooth'
+				});
+			});
+		</script>
 	</body>
 </html>
