@@ -36,6 +36,9 @@
 			<h1 id="blog-title">Loading...</h1>
 			<div class="blog-meta">
 				<span id="blog-date"></span>
+				<button id="share-button" class="share-button" title="Copy shareable link" style="display: none;">
+					<i class="fa-solid fa-share-nodes"></i> Share
+				</button>
 			</div>
 			<div id="blog-content" class="blog-content">
 				<p>Loading blog content...</p>
@@ -47,14 +50,44 @@
 		</a>
 		
 		<script>
-			// Check if Writings feature is enabled
+			// Check if Writings feature is enabled or direct access parameter is provided
 			document.addEventListener('DOMContentLoaded', () => {
-				if (!siteConfig.features.showWritings) {
-					// Redirect to home page if Writings feature is disabled
+				const urlParams = new URLSearchParams(window.location.search);
+				const directAccess = urlParams.get('direct') === 'true';
+				
+				if (!siteConfig.features.showWritings && !directAccess) {
+					// Redirect to home page if Writings feature is disabled and no direct access
 					window.location.href = 'index.html';
 				} else {
 					// Load blog post when page loads
 					loadBlogPost();
+					
+					// Hide navigation if direct access and showWritings is false
+					if (directAccess && !siteConfig.features.showWritings) {
+						document.getElementById('main-navigation').style.display = 'none';
+					}
+					
+					// Setup share button
+					const shareButton = document.getElementById('share-button');
+					const file = urlParams.get('file');
+					
+					if (file) {
+						shareButton.style.display = 'inline-block';
+						shareButton.addEventListener('click', () => {
+							const shareableLink = getShareableLink(file);
+							navigator.clipboard.writeText(shareableLink)
+								.then(() => {
+									shareButton.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
+									setTimeout(() => {
+										shareButton.innerHTML = '<i class="fa-solid fa-share-nodes"></i> Share';
+									}, 2000);
+								})
+								.catch(err => {
+									console.error('Failed to copy link: ', err);
+									alert('Shareable link: ' + shareableLink);
+								});
+						});
+					}
 				}
 			});
 			

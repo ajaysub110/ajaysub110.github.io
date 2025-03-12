@@ -43,14 +43,22 @@
 		</a>
 		
 		<script>
-			// Check if Writings feature is enabled
+			// Check if Writings feature is enabled or direct access parameter is provided
 			document.addEventListener('DOMContentLoaded', () => {
-				if (!siteConfig.features.showWritings) {
-					// Redirect to home page if Writings feature is disabled
+				const urlParams = new URLSearchParams(window.location.search);
+				const directAccess = urlParams.get('direct') === 'true';
+				
+				if (!siteConfig.features.showWritings && !directAccess) {
+					// Redirect to home page if Writings feature is disabled and no direct access
 					window.location.href = 'index.html';
 				} else {
 					// Load blog posts when page loads
 					loadBlogList();
+					
+					// Hide navigation if direct access and showWritings is false
+					if (directAccess && !siteConfig.features.showWritings) {
+						document.getElementById('main-navigation').style.display = 'none';
+					}
 				}
 			});
 			

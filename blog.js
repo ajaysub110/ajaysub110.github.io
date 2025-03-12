@@ -3,6 +3,10 @@ async function loadBlogList() {
     try {
         const blogListElement = document.querySelector('.blog-list');
         
+        // Check if direct access parameter is present in current URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const directAccess = urlParams.get('direct') === 'true';
+        
         // Fetch the blog index file
         const indexResponse = await fetch('assets/blog/index.json');
         
@@ -49,7 +53,14 @@ async function loadBlogList() {
                 
                 // Create link to individual blog post
                 const blogLink = document.createElement('a');
-                blogLink.href = `blog-post.html?file=${encodeURIComponent(file)}`;
+                let blogUrl = `blog-post.html?file=${encodeURIComponent(file)}`;
+                
+                // Add direct access parameter if present in current URL
+                if (directAccess) {
+                    blogUrl += '&direct=true';
+                }
+                
+                blogLink.href = blogUrl;
                 blogLink.className = 'blog-title';
                 blogLink.textContent = title;
                 
@@ -83,6 +94,12 @@ async function loadBlogList() {
             <p>Then visit: <a href="http://localhost:8000">http://localhost:8000</a></p>
         `;
     }
+}
+
+// Function to generate a shareable link for a blog post
+function getShareableLink(file) {
+    const baseUrl = window.location.origin + window.location.pathname.replace(/\/[^\/]*$/, '/');
+    return `${baseUrl}blog-post.html?file=${encodeURIComponent(file)}&direct=true`;
 }
 
 // Function to load a single blog post
