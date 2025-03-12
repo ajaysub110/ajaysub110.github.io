@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-TW9P59FKLZ"></script>
+		<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'G-TW9P59FKLZ');
+		</script>
+
+		<title>Ajay Subramanian - Admin</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Adobe Fonts (Typekit) -->
+		<link rel="stylesheet" href="https://use.typekit.net/yvx8kro.css">
+		<!-- Fallback Google Fonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&display=swap" rel="stylesheet">
+		<!-- Font Awesome for icons -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+		<link rel="stylesheet" href="stylesheet.css">
+		<script src="config.js"></script>
+		<script src="blog.js"></script>
+		<style>
+			.admin-container {
+				max-width: 800px;
+				margin: 0 auto;
+				padding: 2em 0;
+			}
+			.admin-heading {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				margin-bottom: 2em;
+			}
+			.admin-heading h1 {
+				margin: 0;
+			}
+			.admin-heading a {
+				font-size: 1em;
+			}
+			.blog-list-admin {
+				margin: 2em 0;
+			}
+			.blog-entry-admin {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				padding: 1em 0;
+				border-bottom: 1px solid #ddd;
+			}
+			.blog-info {
+				flex: 1;
+			}
+			.blog-actions {
+				display: flex;
+				gap: 1em;
+			}
+			.copy-link-btn {
+				background-color: #82291b;
+				color: white;
+				border: none;
+				border-radius: 4px;
+				padding: 6px 12px;
+				font-size: 0.9em;
+				cursor: pointer;
+				transition: all 0.2s ease;
+				display: flex;
+				align-items: center;
+				gap: 6px;
+			}
+			.copy-link-btn:hover {
+				background-color: #6a2217;
+				transform: translateY(-2px);
+			}
+			.view-btn {
+				background-color: #333;
+				color: white;
+				border: none;
+				border-radius: 4px;
+				padding: 6px 12px;
+				font-size: 0.9em;
+				cursor: pointer;
+				transition: all 0.2s ease;
+				display: flex;
+				align-items: center;
+				gap: 6px;
+				text-decoration: none;
+			}
+			.view-btn:hover {
+				background-color: #555;
+				transform: translateY(-2px);
+			}
+		</style>
+	</head>
+	<body>
+		<div class="admin-container">
+			<div class="admin-heading">
+				<h1>Admin - Writings</h1>
+				<a href="index.html">Back to Home</a>
+			</div>
+			
+			<div id="blog-list-admin" class="blog-list-admin">
+				<!-- Blog entries will be loaded here by JavaScript -->
+				<p>Loading blog posts...</p>
+			</div>
+		</div>
+
+		<a href="#" id="back-to-top" class="back-to-top" aria-label="Back to top">
+			<i class="fa-solid fa-arrow-up"></i>
+		</a>
+		
+		<script>
+			// Load blog posts when page loads
+			document.addEventListener('DOMContentLoaded', loadAdminBlogList);
+			
+			// Function to load blog list for admin
+			async function loadAdminBlogList() {
+				try {
+					const blogListElement = document.getElementById('blog-list-admin');
+					
+					// Fetch the blog index file
+					const indexResponse = await fetch('assets/blog/index.json');
+					
+					if (!indexResponse.ok) {
+						throw new Error(`Failed to fetch blog index: ${indexResponse.status}`);
+					}
+					
+					const indexData = await indexResponse.json();
+					const blogFiles = indexData.blogFiles || [];
+					
+					if (blogFiles.length === 0) {
+						throw new Error('No blog files found in index');
+					}
+					
+					// Clear loading message
+					blogListElement.innerHTML = '';
+					
+					// Sort blog files by date (newest first)
+					blogFiles.sort((a, b) => {
+						const dateA = a.split('_')[0];
+						const dateB = b.split('_')[0];
+						return dateB.localeCompare(dateA);
+					});
+					
+					// Process each blog file
+					for (const file of blogFiles) {
+						try {
+							const fileResponse = await fetch(`assets/blog/${file}`);
+							
+							if (!fileResponse.ok) {
+								console.error(`Failed to load file: ${file}`, fileResponse.status);
+								continue;
+							}
+							
+							const content = await fileResponse.text();
+							
+							// Parse the blog content
+							const lines = content.split('\n');
+							const title = lines[0].trim();
+							const date = lines[1].trim();
+							
+							// Create blog entry element
+							const blogEntry = document.createElement('div');
+							blogEntry.className = 'blog-entry-admin';
+							
+							// Create blog info container
+							const blogInfo = document.createElement('div');
+							blogInfo.className = 'blog-info';
+							
+							// Create title element
+							const titleElement = document.createElement('div');
+							titleElement.className = 'blog-title';
+							titleElement.textContent = title;
+							
+							// Create date element
+							const dateElement = document.createElement('div');
+							dateElement.className = 'blog-date';
+							dateElement.textContent = date;
+							
+							// Create actions container
+							const actionsContainer = document.createElement('div');
+							actionsContainer.className = 'blog-actions';
+							
+							// Create view button
+							const viewLink = document.createElement('a');
+							viewLink.href = `blog-post.html?file=${encodeURIComponent(file)}&direct=true`;
+							viewLink.className = 'view-btn';
+							viewLink.innerHTML = '<i class="fa-solid fa-eye"></i> View';
+							viewLink.target = '_blank';
+							
+							// Create copy link button
+							const copyButton = document.createElement('button');
+							copyButton.className = 'copy-link-btn';
+							copyButton.innerHTML = '<i class="fa-solid fa-link"></i> Copy Link';
+							copyButton.addEventListener('click', () => {
+								const shareableLink = getShareableLink(file);
+								navigator.clipboard.writeText(shareableLink)
+									.then(() => {
+										copyButton.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
+										setTimeout(() => {
+											copyButton.innerHTML = '<i class="fa-solid fa-link"></i> Copy Link';
+										}, 2000);
+									})
+									.catch(err => {
+										console.error('Failed to copy link: ', err);
+										alert('Shareable link: ' + shareableLink);
+									});
+							});
+							
+							// Add elements to containers
+							blogInfo.appendChild(titleElement);
+							blogInfo.appendChild(dateElement);
+							
+							actionsContainer.appendChild(viewLink);
+							actionsContainer.appendChild(copyButton);
+							
+							// Add containers to blog entry
+							blogEntry.appendChild(blogInfo);
+							blogEntry.appendChild(actionsContainer);
+							
+							// Add blog entry to list
+							blogListElement.appendChild(blogEntry);
+						} catch (error) {
+							console.error(`Error loading blog file ${file}:`, error);
+						}
+					}
+					
+				} catch (error) {
+					console.error('Error loading blog posts:', error);
+					document.getElementById('blog-list-admin').innerHTML = `
+						<p>Error loading blog posts: ${error.message}</p>
+					`;
+				}
+			}
+			
+			// Back to top button functionality
+			const backToTopButton = document.getElementById('back-to-top');
+			
+			// Show button when user scrolls down 300px
+			window.addEventListener('scroll', () => {
+				if (window.scrollY > 300) {
+					backToTopButton.classList.add('show');
+				} else {
+					backToTopButton.classList.remove('show');
+				}
+			});
+			
+			// Smooth scroll to top when button is clicked
+			backToTopButton.addEventListener('click', (e) => {
+				e.preventDefault();
+				window.scrollTo({
+					top: 0,
+					behavior: 'smooth'
+				});
+			});
+		</script>
+	</body>
+</html> 
