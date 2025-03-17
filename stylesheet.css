@@ -267,11 +267,14 @@ li {
 }
 
 .blog-post h1 {
-	max-width: 70%;
+	max-width: 100%;
 	line-height: 1.3;
-	word-wrap: break-word;
-	overflow-wrap: break-word;
-	hyphens: auto;
+	word-wrap: normal;
+	overflow-wrap: normal;
+	white-space: nowrap;
+	overflow-x: auto;
+	padding-bottom: 5px;
+	hyphens: none;
 }
 
 .blog-content {
