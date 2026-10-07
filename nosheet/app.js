@@ -1,6 +1,6 @@
-import {listVideos,saveVideo,getVideoFile,renameVideo,deleteVideo,requestPersistence,storageInfo,storageError} from './storage.js';
+import {listVideos,saveVideo,getVideoFile,renameVideo,deleteVideo,savePractice,requestPersistence,storageInfo,storageError} from './storage.js';
 import {shortcutAction} from './shortcuts.js';
-import {fixedBoundaries, segmentAt, editBoundary, addBoundary, Countdown} from './segments.js';
+import {fixedBoundaries, segmentAt, editBoundary, addBoundary, restorePractice, Countdown} from './segments.js';
 const $ = id => document.getElementById(id);
 const video = $('video');
 const state = {boundaries:[], index:0, size:5, speed:1, loop:false, pause:2, status:'paused', custom:false, url:null, operation:0, waitingUntil:0, buffering:false};
@@ -24,6 +24,18 @@ for(const element of document.querySelectorAll('[data-icon]')) element.innerHTML
 let guideShown=false;
 try{guideShown=localStorage.getItem('nosheet-guide-shown')==='true';}catch{}
 
+let lastPractice='', practiceWrites=Promise.resolve();
+function rememberPractice() {
+  if(!currentVideo || !state.boundaries.length)return;
+  const id=currentVideo.id;
+  const practice={start:state.boundaries[state.index],index:state.index,size:state.size,custom:state.custom,boundaries:state.custom?[...state.boundaries]:undefined,speed:state.speed,pause:state.pause};
+  const fingerprint=JSON.stringify([id,practice]);if(fingerprint===lastPractice)return;
+  lastPractice=fingerprint;
+  currentVideo={...currentVideo,practice};
+  library=library.map(item=>item.id===id?{...item,practice}:item);
+  // Save each segment transition immediately, rather than waiting for a tab to close.
+  practiceWrites=practiceWrites.then(()=>savePractice(id,practice)).catch(e=>{lastPractice='';error(`Could not save your progress. ${storageError(e)}`);});
+}
 let library = [], currentVideo = null, renameTarget = null, deleteTarget = null;
 const time = seconds => {const minutes = Math.floor(seconds/60); return `${minutes}:${(seconds % 60).toFixed(2).padStart(5,'0')}`;};
 function feedback(message, action) {
@@ -31,14 +43,17 @@ function feedback(message, action) {
   const zone = document.querySelector(`[data-action="${action}"]`); if (zone) {zone.classList.add('flash');setTimeout(() => zone.classList.remove('flash'),350);}
 }
 function error(message) {$('error').textContent = message; $('error').hidden = !message;}
-function setReady(ready) {for(const element of document.querySelectorAll('.zone,#play,#replay,#previous,#next,#timeline,#loop,#settingsButton,#editButton,#speedUp,#speedDown')) element.disabled=!ready;}
+function setReady(ready) {for(const element of document.querySelectorAll('.zone,#play,#replay,#previous,#next,#timeline,#loop,#settingsButton,#editButton,#speedSlider,[data-speed]')) element.disabled=!ready;}
 function cancel() {state.operation++;countdown.cancel();state.waitingUntil=0;state.buffering=false;video.pause();state.status='paused';render();}
 function render() {
   if (!state.boundaries.length) return;
+  rememberPractice();
   const end = state.boundaries[state.index+1];
   $('segmentLabel').textContent = `Segment ${state.index+1} of ${state.boundaries.length-1}`;
   $('timeRange').textContent = `${time(state.boundaries[state.index])} — ${time(end)}`;
   $('speedLabel').textContent = `${state.speed}×`;
+  $('speedSlider').value=state.speed;$('speedSlider').setAttribute('aria-valuetext',`${state.speed} times normal speed`);
+  for(const button of document.querySelectorAll('[data-speed]'))button.setAttribute('aria-pressed',Number(button.dataset.speed)===state.speed);
   $('loop').innerHTML = `${icon('loop')}Loop`; $('loop').setAttribute('aria-label',`Loop ${state.loop?'on':'off'}`); $('loop').setAttribute('aria-pressed',state.loop);
   $('previous').disabled = state.index === 0;
   $('next').disabled = state.index >= state.boundaries.length-2;
@@ -77,12 +92,14 @@ async function playSegment() {
 }
 function center() {if (['playing','waiting','buffering'].includes(state.status)) {cancel();feedback('Paused','center');} else {playSegment();feedback('Play phrase','center');}}
 function navigate(delta) {const index=state.index+delta;if(index<0 || index>=state.boundaries.length-1)return;cancel();state.index=index;playSegment();feedback(delta>0?'Next phrase':'Previous phrase',delta>0?'next':null);}
-function speed(delta) {if(!state.boundaries.length)return;state.speed=Math.min(2,Math.max(.25,state.speed+delta));video.playbackRate=state.speed;render();feedback(`Speed: ${state.speed}×`,delta>0?'faster':'slower');}
+function setSpeed(value) {if(!state.boundaries.length)return;state.speed=Math.round(Math.min(2,Math.max(.25,value))*4)/4;video.playbackRate=state.speed;render();}
+function speed(delta) {setSpeed(state.speed+delta);feedback(`Speed: ${state.speed}×`,delta>0?'faster':'slower');}
 function toggleLoop() {if(!state.boundaries.length)return;state.loop=!state.loop;if(!state.loop && state.status==='waiting') cancel();render();feedback(`Loop ${state.loop?'on':'off'}`);}
 const actions = {center,replay:()=>{playSegment();feedback('Replay','replay');},next:()=>navigate(1),previous:()=>navigate(-1),faster:()=>speed(.25),slower:()=>speed(-.25)};
 for (const zone of document.querySelectorAll('[data-action]')) zone.addEventListener('click',()=>actions[zone.dataset.action]());
 $('play').onclick=center;$('replay').onclick=actions.replay;$('previous').onclick=actions.previous;$('next').onclick=actions.next;$('loop').onclick=toggleLoop;
-$('speedUp').onclick=actions.faster;$('speedDown').onclick=actions.slower;
+$('speedSlider').oninput=()=>setSpeed(Number($('speedSlider').value));
+for(const button of document.querySelectorAll('[data-speed]'))button.onclick=()=>setSpeed(Number(button.dataset.speed));
 function redrawBoundaries() {
   $('markers').replaceChildren();
   // Cap the visual ticks for long tutorials; every actual boundary remains editable.
@@ -115,24 +132,35 @@ function applySegmentSize(){
   state.size=value;updateBoundaries(fixedBoundaries(video.duration,value),false);
 };
 $('segmentSize').onchange=applySegmentSize;
-function applyLoopPause(){const value=Number($('loopPause').value);if(!Number.isFinite(value)||value<0||value>10){$('loopPause').value=state.pause;return;}state.pause=value;}
+function applyLoopPause(){const value=Number($('loopPause').value);if(!Number.isFinite(value)||value<0||value>10){$('loopPause').value=state.pause;return;}state.pause=value;rememberPractice();}
 $('loopPause').onchange=applyLoopPause;
 $('settings').querySelector('form').addEventListener('submit',()=>{applySegmentSize();applyLoopPause();});
-async function toggleFullscreen(){try {if(document.fullscreenElement)await document.exitFullscreen();else if($('app').requestFullscreen)await $('app').requestFullscreen();else feedback('Fullscreen is unavailable in this browser.');}catch{feedback('Fullscreen is unavailable. Use the page-filling player.');}};
+function isFullscreen(){return !!document.fullscreenElement || $('app').classList.contains('page-fullscreen');}
+function fullscreenChanged(){const active=isFullscreen();$('fullscreen').innerHTML=icon(active?'collapse':'fullscreen');$('fullscreen').setAttribute('aria-label',active?'Exit fullscreen':'Enter fullscreen');revealControls();}
+function pageFullscreen(active){$('app').classList.toggle('page-fullscreen',active);document.body.classList.toggle('page-fullscreen-active',active);fullscreenChanged();}
+async function toggleFullscreen(){
+  if($('app').classList.contains('page-fullscreen')){pageFullscreen(false);return;}
+  if(document.fullscreenElement){try{await document.exitFullscreen();}catch{feedback('Could not exit fullscreen. Try Escape.');}return;}
+  try{if($('app').requestFullscreen){await $('app').requestFullscreen();return;}}catch{}
+  pageFullscreen(true);feedback('Expanded player · tap collapse to exit');
+}
 $('fullscreen').onclick=toggleFullscreen;
-document.addEventListener('fullscreenchange',()=>{$('fullscreen').innerHTML=icon(document.fullscreenElement?'collapse':'fullscreen');$('fullscreen').setAttribute('aria-label',document.fullscreenElement?'Exit fullscreen':'Enter fullscreen');revealControls();});
+document.addEventListener('fullscreenchange',fullscreenChanged);
+document.addEventListener('keydown',e=>{if(e.key==='Escape' && $('app').classList.contains('page-fullscreen') && !document.querySelector('dialog[open]'))pageFullscreen(false);});
 let idleTimer;
-function revealControls(){clearTimeout(idleTimer);$('app').classList.remove('controls-idle');idleTimer=setTimeout(()=>{if(document.fullscreenElement && state.status==='playing' && !document.querySelector('dialog[open]'))$('app').classList.add('controls-idle');},2500);}
+function revealControls(){clearTimeout(idleTimer);$('app').classList.remove('controls-idle');idleTimer=setTimeout(()=>{if(isFullscreen() && state.status==='playing' && !document.querySelector('dialog[open]'))$('app').classList.add('controls-idle');},2500);}
 for(const event of ['pointermove','pointerdown','keydown'])document.addEventListener(event,revealControls);
 video.addEventListener('playing',revealControls);
 for (const button of document.querySelectorAll('.upload')) button.onclick=()=>$('file').click();
 async function loadVideo(item) {
-  cancel();error('');state.boundaries=[];
+  cancel();const operation=state.operation;error('');state.boundaries=[];
   if(frameId!==undefined && video.cancelVideoFrameCallback)video.cancelVideoFrameCallback(frameId);
   frameId=undefined;
   if(state.url){video.removeAttribute('src');video.load();URL.revokeObjectURL(state.url);}
-  state.url=null;currentVideo=item;
-  const operation=state.operation;let file;
+  state.url=null;lastPractice='';
+  await practiceWrites;if(operation!==state.operation)return;
+  currentVideo=library.find(entry=>entry.id===item.id)||item;
+  let file;
   try{file=await getVideoFile(item.id);if(operation!==state.operation)return;}catch(e){error(storageError(e));return;}
   Object.assign(state,{index:0,size:5,speed:1,loop:false,pause:2,custom:false});
   $('segmentSize').value=5;$('loopPause').value=2;$('editor').hidden=true;$('editButton').setAttribute('aria-expanded','false');
@@ -171,7 +199,7 @@ function renderLibrary() {
     image.src='data:image/svg+xml,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="480" height="270"><rect width="480" height="270" fill="#191b1f"/><path d="m226 115 30 20-30 20Z" fill="#565c65"/></svg>');
     const content=document.createElement('div');content.className='song-info';
     const heading=document.createElement('h2');heading.textContent=item.title;
-    const meta=document.createElement('div');meta.className='song-meta';meta.textContent=`${(item.bytes/1024/1024).toFixed(1)} MB`;
+    const meta=document.createElement('div');meta.className='song-meta';meta.textContent=item.practice?`Resume segment ${item.practice.index+1} · ${time(item.practice.start)}`:`${(item.bytes/1024/1024).toFixed(1)} MB`;
     content.append(heading,meta);play.append(image,content);
     const menu=document.createElement('details');menu.className='song-menu';
     const summary=document.createElement('summary');summary.innerHTML=icon('more');summary.setAttribute('aria-label',`Options for ${item.title}`);summary.title='Video options';
@@ -197,9 +225,9 @@ $('deleteForm').onsubmit=async e=>{
 };
 $('deleteDialog').addEventListener('cancel',e=>{if($('confirmDelete').disabled)e.preventDefault();});
 async function showLibrary() {
-  cancel();error('');$('player').hidden=true;$('library').hidden=false;$('app').classList.remove('in-player');
+  cancel();if($('app').classList.contains('page-fullscreen'))pageFullscreen(false);error('');$('player').hidden=true;$('library').hidden=false;$('app').classList.remove('in-player');
   $('libraryStatus').textContent='Opening your library…';
-  try{library=await listVideos();renderLibrary();}catch(e){$('libraryStatus').textContent=e.message;}
+  try{await practiceWrites;library=await listVideos();renderLibrary();}catch(e){$('libraryStatus').textContent=e.message;}
 }
 $('libraryButton').onclick=showLibrary;
 document.querySelector('.brand').onclick=e=>{e.preventDefault();showLibrary();};
@@ -225,7 +253,10 @@ initializeLibrary();
 video.addEventListener('loadedmetadata',()=>{
   if(!Number.isFinite(video.duration)||video.duration<=0){error('This video has no usable duration. Try another file.');return;}
   $('stage').style.setProperty('--video-ratio',video.videoWidth/video.videoHeight || 16/9);
-  state.boundaries=fixedBoundaries(video.duration,state.size);video.playbackRate=1;video.currentTime=0;
+  Object.assign(state,restorePractice(video.duration,currentVideo?.practice));
+  video.playbackRate=state.speed;video.currentTime=state.boundaries[state.index];
+  $('segmentSize').value=state.size;$('loopPause').value=state.pause;
+  if(currentVideo?.practice)feedback(`Resumed segment ${state.index+1}`);
   $('timeline').max=video.duration;$('total').textContent=time(video.duration);$('play').disabled=false;
   setReady(true);redrawBoundaries();
   if(video.requestVideoFrameCallback){const frame=()=>{if(state.status==='playing'&&!video.seeking&&video.currentTime>=state.boundaries[state.index+1])finish();frameId=video.requestVideoFrameCallback(frame);};frameId=video.requestVideoFrameCallback(frame);}

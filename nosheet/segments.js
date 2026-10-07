@@ -22,3 +22,16 @@ export class Countdown {
   cancel() {this.generation++; if (this.id !== null) this.unschedule(this.id); this.id = null;}
   start(seconds, callback) {this.cancel(); const generation = this.generation; this.id = this.schedule(() => {if (generation === this.generation) {this.id = null; callback();}}, seconds * 1000);}
 }
+
+export function restorePractice(duration,practice) {
+  const size=Number.isInteger(practice?.size)&&practice.size>=1&&practice.size<=30?practice.size:5;
+  let boundaries=fixedBoundaries(duration,size),custom=false;
+  const saved=practice?.boundaries;
+  if(practice?.custom && Array.isArray(saved) && saved.length>=2 && saved[0]===0 && Math.abs(saved.at(-1)-duration)<.01 && saved.every((t,i)=>Number.isFinite(t) && (i===0 || t>saved[i-1]))) {
+    boundaries=[...saved];boundaries[boundaries.length-1]=duration;custom=true;
+  }
+  const start=Number.isFinite(practice?.start)?Math.max(0,Math.min(duration,practice.start)):0;
+  const speed=Number.isFinite(practice?.speed)&&practice.speed>=.25&&practice.speed<=2?Math.round(practice.speed*4)/4:1;
+  const pause=Number.isFinite(practice?.pause)&&practice.pause>=0&&practice.pause<=10?practice.pause:2;
+  return {boundaries,index:segmentAt(boundaries,start),size,custom,speed,pause};
+}

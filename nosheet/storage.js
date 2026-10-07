@@ -44,6 +44,14 @@ export async function renameVideo(id,title) {
   request.onsuccess=()=>{item=request.result;if(!item){transaction.abort();return;}item={...item,title};store.put(item);};
   await done;if(!item)throw new Error('Video not found.');return item;
 }
+// Update only practice metadata so concurrent renames keep their title.
+export async function savePractice(id,practice) {
+  const db=await openLibrary(),transaction=db.transaction('videos','readwrite'),store=transaction.objectStore('videos');
+  const done=transactionDone(transaction);let item;
+  const request=store.get(id);
+  request.onsuccess=()=>{item=request.result;if(item)store.put({...item,practice});};
+  await done; // A deleted video must never be recreated by a late save.
+}
 export async function deleteVideo(id) {
   const db=await openLibrary(),transaction=db.transaction(['videos','files'],'readwrite');
   const done=transactionDone(transaction);transaction.objectStore('videos').delete(id);transaction.objectStore('files').delete(id);await done;
