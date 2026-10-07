@@ -7,15 +7,19 @@
 button,summary,a,input[type=range]{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
 input[type=number],input[type=text]{font-size:16px}
 #app{padding-left:max(24px,env(safe-area-inset-left));padding-right:max(24px,env(safe-area-inset-right));padding-bottom:env(safe-area-inset-bottom)}
-.speed-control{display:flex;flex-direction:column;align-items:stretch;gap:2px;width:min(100%,250px)}
+.speed-control{display:flex;flex-direction:column;align-items:stretch;gap:2px;width:min(100%,250px);padding-inline:8px}
 .speed-heading{display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--muted)}
 #speedLabel{min-width:0;color:var(--text)}
-#speedSlider{width:100%;margin:0;height:36px;accent-color:var(--accent);cursor:pointer;touch-action:pan-y pinch-zoom}
-.speed-presets{display:flex;justify-content:space-between;gap:2px}
-.speed-presets button{border:0;background:transparent;color:var(--muted);padding:4px 6px;min-height:30px;flex:1;font-size:11px}
+#speedSlider{width:100%;margin:0;height:36px;appearance:none;-webkit-appearance:none;background:transparent;cursor:pointer;touch-action:pan-y pinch-zoom}
+#speedSlider::-webkit-slider-runnable-track{height:4px;background:#424a46;border-radius:2px}
+#speedSlider::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;width:20px;height:20px;margin-top:-8px;border:0;border-radius:50%;background:var(--accent)}
+#speedSlider::-moz-range-track{height:4px;background:#424a46;border-radius:2px}
+#speedSlider::-moz-range-thumb{width:20px;height:20px;border:0;border-radius:50%;background:var(--accent)}
+.speed-presets{position:relative;height:30px}
+.speed-presets button{position:absolute;top:0;left:calc(10px + (100% - 20px)*var(--speed-position));transform:translateX(-50%);border:0;background:transparent;color:var(--muted);padding:4px 2px;width:34px;min-height:30px;font-size:11px;font-variant-numeric:tabular-nums}
 .speed-presets button[aria-pressed=true]{background:#b4c5bc18;color:var(--accent)}
 .practice-bar{grid-template-columns:minmax(180px,1fr) auto minmax(80px,1fr)}
-@media(pointer:coarse){.speed-presets button{min-height:44px}.transport .icon-button,.loop-button{min-height:44px;min-width:44px}#timeline{height:36px}}
+@media(pointer:coarse){.speed-presets{height:44px}.speed-presets button{min-height:44px}.transport .icon-button,.loop-button{min-height:44px;min-width:44px}#timeline{height:36px}}
 @media(max-width:760px){.practice-bar{grid-template-columns:minmax(0,1fr) auto}.speed-control{width:min(100%,300px)}.loop-button{align-self:center}.player-heading{flex:1}.player-heading h1{max-width:none}.tap-hint{font-size:10px;padding-bottom:16px}}
 @media(max-width:480px){#app{padding-left:max(12px,env(safe-area-inset-left));padding-right:max(12px,env(safe-area-inset-right))}.masthead{height:64px}#library{padding-top:24px}.library-heading{margin-bottom:24px}#videoList{grid-template-columns:minmax(0,1fr);gap:26px}.player-header{height:60px}.header-actions{gap:0}.header-actions .icon-button{width:40px;min-width:40px}.player-heading .icon-button{width:40px;min-width:40px}.player-heading h1{font-size:12px}.player-controls{padding:0 2px}.segment-info{padding-top:16px;flex-wrap:wrap}.transport{gap:4px}.play-button{margin-inline:4px}.practice-bar{gap:10px}.speed-control{width:100%}.zone{padding:0;min-height:0}.zone>span{padding:8px}.zone small{display:none}.zone svg{width:20px;height:20px}#toast,#waiting{max-width:calc(100% - 16px);white-space:normal;text-align:center;font-size:11px;padding:8px 12px;bottom:8px}#waiting{top:8px;bottom:auto}dialog{padding:20px;width:calc(100vw - 24px);max-height:calc(100dvh - 32px);overflow:auto}dl{gap:12px;font-size:11px}#editor{padding:14px}.song-menu{bottom:6px}}
 /* On landscape phones, put controls beside the video to preserve its size. */

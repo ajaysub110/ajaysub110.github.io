@@ -1,6 +1,6 @@
-import {listVideos,saveVideo,getVideoFile,renameVideo,deleteVideo,savePractice,requestPersistence,storageInfo,storageError} from './storage.js?v=20261006-2';
-import {shortcutAction} from './shortcuts.js?v=20261006-2';
-import {fixedBoundaries, segmentAt, editBoundary, addBoundary, restorePractice, Countdown} from './segments.js?v=20261006-2';
+import {listVideos,saveVideo,getVideoFile,renameVideo,deleteVideo,savePractice,requestPersistence,storageInfo,storageError} from './storage.js?v=20261006-3';
+import {shortcutAction} from './shortcuts.js?v=20261006-3';
+import {fixedBoundaries, segmentAt, editBoundary, addBoundary, restorePractice, Countdown} from './segments.js?v=20261006-3';
 const $ = id => document.getElementById(id);
 const video = $('video');
 const state = {boundaries:[], index:0, size:5, speed:1, loop:false, pause:2, status:'paused', custom:false, url:null, operation:0, waitingUntil:0, buffering:false};
