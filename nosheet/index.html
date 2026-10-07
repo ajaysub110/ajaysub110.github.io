@@ -1,12 +1,13 @@
 <!doctype html>
 <html lang="en">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#111214"><title>NoSheet</title><link rel="stylesheet" href="style.css"></head>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#111214"><title>NoSheet</title><link rel="stylesheet" href="style.css?v=20261006-2"></head>
 <body>
 <main id="app">
   <header class="masthead"><a class="brand" href="./" aria-label="NoSheet library">nosheet</a><button id="storageButton" class="local-label quiet" aria-label="Storage information"><span></span>This device</button></header>
   <section id="library">
     <div class="library-heading"><div><h1>Library <span id="libraryCount"></span></h1></div><button class="primary upload"><span data-icon="plus"></span>Add video</button></div>
     <p id="libraryStatus" role="status" aria-live="polite">Loading library…</p>
+    <button id="retryLibrary" type="button" hidden>Reload library</button>
     <div id="videoList"></div><p id="storageSummary" class="storage-summary"></p>
     <div id="emptyLibrary" hidden><span data-icon="video" class="empty-icon"></span><h2>Add a video to begin</h2><p>Your saved videos will appear here.</p><button class="primary upload"><span data-icon="plus"></span>Add video</button></div>
   </section>
@@ -28,5 +29,11 @@
   <dialog id="importDialog"><div class="dialog-heading"><h2>Importing video</h2></div><p id="importFilename"></p><progress id="importProgress" max="100" value="0"></progress><p id="importStatus" role="status" aria-live="polite">Saving to library…</p></dialog>
   <dialog id="settings"><form method="dialog"><div class="dialog-heading"><h2>Practice settings</h2><button class="icon-button" aria-label="Close settings"><span data-icon="close"></span></button></div><label>Segment length <span>Seconds of original video</span><input id="segmentSize" type="number" min="1" max="30" step="1" value="5"></label><label>Pause between loops <span>Seconds between repetitions</span><input id="loopPause" type="number" min="0" max="10" step="0.5" value="2"></label><button id="editButton" type="button" class="settings-link" aria-expanded="false"><span data-icon="edit"></span>Edit segments<span data-icon="next"></span></button><div class="dialog-actions"><button class="primary">Done</button></div></form></dialog>
   <dialog id="help"><form method="dialog"><div class="dialog-heading"><h2>Controls</h2><button class="icon-button" aria-label="Close help"><span data-icon="close"></span></button></div><p>Tap the center to play a segment or pause. Replay always starts at the beginning. Your segment and practice settings are saved for each video on this device.</p><dl><dt>Tap left / ←</dt><dd>Replay segment</dd><dt>Tap right / →</dt><dd>Next segment</dd><dt>Shift + ←</dt><dd>Previous segment</dd><dt>Tap top / ↑</dt><dd>Increase speed</dd><dt>Tap bottom / ↓</dt><dd>Decrease speed</dd><dt>Space</dt><dd>Play / pause</dd><dt>L</dt><dd>Toggle looping</dd><dt>F</dt><dd>Toggle fullscreen</dd></dl><p>Click a speed preset or drag the slider to change playback speed. Loop repeats the current segment. Tap the center during the countdown to stop.</p><div class="dialog-actions"><button class="primary">Got it</button></div></form></dialog>
-</main><script type="module" src="app.js"></script>
+</main><script type="module">
+const status=document.getElementById('libraryStatus'),retry=document.getElementById('retryLibrary');
+retry.onclick=()=>location.reload();
+function startupFailure(message){status.textContent=message;retry.hidden=false;}
+const watchdog=setTimeout(()=>{if(status.textContent==='Loading library…')startupFailure('Loading is taking too long. Close other NoSheet tabs and reload. Your saved library has not been cleared.');},12000);
+import('./app.js?v=20261006-2').catch(error=>{clearTimeout(watchdog);startupFailure('The page could not start. Reload to try again. Your saved library has not been cleared.');console.error('NoSheet startup failed:',error);});
+</script>
 </body></html>

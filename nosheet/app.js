@@ -1,6 +1,6 @@
-import {listVideos,saveVideo,getVideoFile,renameVideo,deleteVideo,savePractice,requestPersistence,storageInfo,storageError} from './storage.js';
-import {shortcutAction} from './shortcuts.js';
-import {fixedBoundaries, segmentAt, editBoundary, addBoundary, restorePractice, Countdown} from './segments.js';
+import {listVideos,saveVideo,getVideoFile,renameVideo,deleteVideo,savePractice,requestPersistence,storageInfo,storageError} from './storage.js?v=20261006-2';
+import {shortcutAction} from './shortcuts.js?v=20261006-2';
+import {fixedBoundaries, segmentAt, editBoundary, addBoundary, restorePractice, Countdown} from './segments.js?v=20261006-2';
 const $ = id => document.getElementById(id);
 const video = $('video');
 const state = {boundaries:[], index:0, size:5, speed:1, loop:false, pause:2, status:'paused', custom:false, url:null, operation:0, waitingUntil:0, buffering:false};
@@ -189,7 +189,7 @@ function thumbnailFor(item) {
 const previewObserver=new IntersectionObserver(entries=>{for(const entry of entries){if(!entry.isIntersecting)continue;const image=entry.target;previewObserver.unobserve(image);const item=library.find(item=>item.id===image.dataset.videoId);if(item)thumbnailFor(item).then(src=>{if(src && image.isConnected)image.src=src;});}},{rootMargin:'100px'});
 function closeMenus(except) {for(const menu of document.querySelectorAll('.song-menu[open]'))if(menu!==except)menu.open=false;}
 function renderLibrary() {
-  previewObserver.disconnect();$('videoList').replaceChildren();
+  $('retryLibrary').hidden=true;previewObserver.disconnect();$('videoList').replaceChildren();
   $('libraryCount').textContent=library.length?String(library.length):'';$('libraryStatus').textContent='';$('emptyLibrary').hidden=library.length>0;updateStorage();
   library.forEach(item=>{
     const card=document.createElement('article');card.className='song-card';
@@ -248,7 +248,7 @@ $('file').onchange=async()=>{
   try{const item=await saveVideo(file);library=[item,...library];await requestPersistence();await updateStorage();await loadVideo(item);}catch(e){error(storageError(e));}finally{$('importDialog').close();}
 };
 $('importDialog').addEventListener('cancel',e=>e.preventDefault());
-async function initializeLibrary() {try{library=await listVideos();renderLibrary();$('library').hidden=false;}catch(e){$('libraryStatus').textContent='Library unavailable.';error(storageError(e));}}
+async function initializeLibrary() {try{library=await listVideos();renderLibrary();$('library').hidden=false;}catch(e){$('libraryStatus').textContent='Library unavailable.';$('retryLibrary').hidden=false;error(storageError(e));}}
 initializeLibrary();
 video.addEventListener('loadedmetadata',()=>{
   if(!Number.isFinite(video.duration)||video.duration<=0){error('This video has no usable duration. Try another file.');return;}
